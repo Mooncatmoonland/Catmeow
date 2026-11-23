@@ -32,7 +32,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .tb{position:relative;pointer-events:auto;width:52px;height:52px;border-radius:16px;font-size:26px;background:var(--glass);border:1px solid var(--line);cursor:pointer;backdrop-filter:blur(6px)}
 .tb.on{border-color:var(--gold);box-shadow:0 0 16px rgba(255,226,154,.5)}
 .modal{position:fixed;left:12px;right:12px;top:calc(var(--hud,70px) + 4px);max-width:520px;margin:auto;max-height:calc(100% - var(--hud,70px) - 14px);overflow:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;background:rgba(18,14,34,.95);border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:none;z-index:9;box-shadow:0 0 60px #000b;font-size:15px;line-height:1.55}
-.modal.on{display:block}.modal h2{margin:0 0 6px;font-size:24px;font-weight:400;font-style:italic;color:var(--gold)}
+.modal.on{display:block}body.fin #tray,body.fin #hosebar,body.fin #nervbar,body.fin #revbar,body.fin #cap{display:none!important}#win{text-align:center;border-color:rgba(255,226,154,.6);box-shadow:0 0 80px rgba(255,200,120,.35),0 0 60px #000b}#win h2{font-size:28px;color:var(--gold);margin:4px 0 10px}#winimg img{width:min(260px,70vw);border:8px solid #fffaf0;border-bottom-width:28px;border-radius:4px;transform:rotate(-2deg);box-shadow:0 8px 24px #0008}#winst{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:10px 0}#winst span{background:rgba(255,226,154,.12);border:1px solid var(--line);border-radius:12px;padding:5px 10px;font-size:14px}.wbtn{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}.wbtn button{font:16px Georgia,serif;color:var(--txt);background:rgba(255,226,154,.14);border:1px solid var(--line);border-radius:16px;padding:10px 16px;cursor:pointer}#winnew{background:rgba(255,226,154,.32)!important}.modal h2{margin:0 0 6px;font-size:24px;font-weight:400;font-style:italic;color:var(--gold)}
 .row{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08)}.row:last-child{border:0}
 .row .e{font-size:30px;width:40px;text-align:center}.row div{flex:1;min-width:0}.row small{display:block;color:var(--mut);font-size:13px}
 .row button{font:14px Georgia,serif;color:var(--txt);background:rgba(255,226,154,.12);border:1px solid var(--line);border-radius:14px;padding:7px 14px;cursor:pointer;white-space:nowrap}
@@ -116,18 +116,19 @@ body[data-loc=jungle] #tray{display:none}
 </style>
 <canvas id="g"></canvas>
 <div id="top"><h1>Samtpfoten<small>Zwei Katzen, ein ganzer Tag.</small></h1><div class="sp"></div>
-<div class="pill">🐾 <b id="pt">0</b></div>
+<div class="pill">🐾 <b id="pt">0</b></div><div class="pill" id="goal" title="Ziel: Häubchen für 5000 Punkte">🎀 <b id="gl">0</b><span id="glx">/5000</span></div>
 <div class="pill">Tag <b id="dn">1</b><span class="todw"> · <span id="tod">Morgen</span></span><div id="tb"><i></i><s>🐈</s><u>🌙</u><em id="bfm">🍽</em></div></div>
 <button class="pill" id="bagb" aria-label="Rucksack">🎒<span class="lbl"> Rucksack</span></button><button class="pill" id="snd" aria-label="Ton">🔊</button><button class="pill" id="ib" aria-label="Hilfe">?</button></div>
 <div id="ban"><b></b><span></span></div>
 <div id="cap"><b></b><span></span></div>
 <div id="tray"></div>
 <div id="pol"><img alt=""><b></b></div>
-<div id="nervbar"><div>😾 <b>Rüdiger wird unruhig!</b> Schliess die Bürotür, sonst läuft er los.</div><div id="nvf"><i></i></div><div class="nvb"><button id="nvdoor">🚪 Tür schliessen</button><button id="nvlet">Laufen lassen</button></div></div>
+<div id="nervbar"><div id="nvtx">😾 <b>Rüdiger wird unruhig!</b> Schliess die Bürotür, sonst läuft er los.</div><div id="nvf"><i></i></div><div class="nvb"><button id="nvdoor">🚪 Tür schliessen</button><button id="nvlet">Laufen lassen</button></div></div>
 <div id="revbar"><div id="rvt">🐈 <b>Revierlauf!</b> Halte gedrückt und spritze Krähen, Füchse und Waschbären weg.</div><div class="rvrow"><span id="rvl">Angst</span><div id="rvf"><i></i></div><span id="rvc">0 verscheucht</span></div></div>
-<div id="jbar"><span>🐆 <b>Leopardentraum</b><small><span id="jtime">120 s</span> · Falter gejagt: <b id="jcnt">0</b></small></span><button id="jroar">🐆 Brüllen</button><button id="jwake">Aufwachen</button></div>
+<div id="jbar"><span>🐆 <b>Leopardentraum</b><small><span id="jtime">120 s</span> · Falter: <b id="jcnt">0</b> · Entdeckt: <b id="jdisc">0/8</b></small></span><button id="jroar">🐆 Brüllen</button><button id="jwake">Aufwachen</button></div>
 <div id="hosebar"><span>🚿 <b>Schlauch in der Hand</b><small>Kurz tippen: laufen, Redner oder Stinker nass machen. Gedrückt halten: spritzen. «Weglegen»: Er rollt sich von selbst auf.</small></span><button id="hoseput">Weglegen</button></div>
 <div id="lure"><div id="lhint"></div><div id="lbar"><i></i></div><div class="lbtn"><button data-a="blink">😌 Langsam blinzeln</button><button data-a="treat">🍗 Leckerli</button><button data-a="pet">💗 Kuscheln</button></div></div>
+<div class="modal" id="win"><h2 id="wint">🎀 Geschafft!</h2><div id="winimg"></div><p id="wintx"></p><div id="winst"></div><p>Möchtest du noch einmal ganz von vorne beginnen, mit null Punkten?</p><div class="wbtn"><button id="winnew">🌱 Neu beginnen (0 Punkte)</button><button id="wingo">Weiterspielen</button></div></div>
 <div class="modal" id="shp"><button class="x" data-c="1" aria-label="Schließen">✕</button><h2 id="shpt">Laden</h2><p id="shpd"></p><div id="shl"></div></div>
 <div class="modal" id="map"><button class="x" data-c="1" aria-label="Schließen">✕</button><h2>Wohin fahren wir?</h2><p>Tippe auf einen Ort auf der Karte.</p>
 <svg viewBox="0 0 600 380" role="img" aria-label="Landkarte">
@@ -156,18 +157,22 @@ body[data-loc=jungle] #tray{display:none}
 <p><b>Rüdiger</b> (grau-weiß) liegt im Büro der Gärtnerei auf einem Schaffell auf dem schwarzen Sofa. Halte die Maustaste oder den Finger auf ihn, um ihn zu kuscheln. Dann schnurrt er und tapst mit den Pfoten.</p>
 <p><b>Müngeli</b> (dreifarbig) sitzt oben auf dem Dachboden des Lagers. Die Frau klettert von allein die Leiter hoch. Halte auf sie oder auf ihre Schale, um Milch einzuschenken.</p>
 <p><b>Spielzeug:</b> Gekauftes Spielzeug wählst du unten aus und tippst auf eine Katze. Bällchen: Tippe, um es zu rollen, die Katze schlägt es zurück. Maus und Federangel: Halte gedrückt und führe sie. Zappelt sie nah an der Pfote, schlägt die Katze zu. Hältst du sie still, pirscht sie sich an und springt. Katzenminze-Kissen: Halte gedrückt und knautsche es, bis die Katze wild wird. Knistertunnel: Die Katze versteckt sich, tippe schnell auf das Ende, an dem sie herausschaut. Viermal erwischt gibt volle Punkte.</p>
-<p><b>Der Imker:</b> Ab und zu kommt tagsüber ein Imker durchs Gartentor und stellt ein Glas Honig ins Lager. Kostet die Frau davon, verwandelt sie sich in einen Leoparden und streift zwei Minuten lang durch einen leuchtenden Dschungel: schleichen, Falter jagen, auf Äste springen, Bäume zerkratzen, am Fluss trinken und brüllen. Zu Hause steht so lange die Zeit still. Im Traum taucht der schwarze Panther Obsidian auf und stellt dir drei Fragen über Katzen. Alle richtig: +150 Pfotenpunkte. Nur eine falsch: Du verlierst alle Pfotenpunkte, Gekauftes bleibt dir.</p>
+<p><b>Ziel des Spiels:</b> Spare 5000 Pfotenpunkte (oben siehst du 🎀 x/5000) und finde 3 Sternenkatzen auf der Bergalp. Daraus entsteht ein Band aus Mondseide, mit dem der Tierladen Rüdigers Zimmermädchen-Häubchen näht. Zieh es ihm im Rucksack an und mach mit 📷 ein Foto fürs Album. Dann kommt das grosse Finale, und du hast gewonnen. Danach kannst du neu beginnen oder weiterspielen.</p>
+<p><b>Die ersten Tage:</b> Am ersten Tag lernst du in Ruhe Kuscheln, Füttern und Spielen. Ab Tag 2 kommen Besucher, Müngelis Ausflug und der Revierlauf dazu, ab Tag 3 die Glühwürmchenjagd.</p>
+<p><b>Müngelis Freundschaft:</b> Trinkt sich Müngeli satt und tanzt, oder kommt sie ungestört vom Ausflug zurück, bekommst du Herzen von ihr. Damit begrüsst sie dich oben im Lager mit einem Tänzchen, legt dir morgens Geschenke an die Leiter und braucht später weniger Milch.</p>
+<p><b>Besuch vom See:</b> Hat die scheue Katze am See mindestens dreimal auf deinem Schoss gekuschelt, besucht sie dich manchmal im Garten und setzt sich auf die Bank. Tippe auf sie zum Streicheln.</p>
+<p><b>Der besondere Honig:</b> Im Tierladen gibt es für 800 Pfotenpunkte ein Glas besonderen Bergblütenhonig. Es steht dann ganz rechts im Lager am Boden. Kostet die Frau davon, verwandelt sie sich in einen Leoparden und streift zwei Minuten lang durch einen leuchtenden Dschungel: schleichen, Falter jagen (fängst du mehrere schnell hintereinander, gibt es eine Combo bis x4), auf Äste springen, Bäume zerkratzen, am Fluss trinken und brüllen. Hinter glühenden Augen im Farn verstecken sich 8 Tiere für dein Dschungelbuch. Affen werfen leuchtende Mangos von den Bäumen. Fängst du eine im Sprung, gibt es 9 Sekunden lang doppelte Punkte. Zu Hause steht so lange die Zeit still. Im Traum taucht der schwarze Panther Obsidian auf und stellt dir drei Fragen über Katzen. Alle richtig: Goldregen, +400 Pfotenpunkte beim ersten Sieg (danach +250) und der grosse Erfolg «Hüterin des Dschungels» mit weiteren 500 Punkten. Nur eine falsch: Du verlierst die Hälfte deiner Pfotenpunkte, Gekauftes bleibt dir.</p>
 <p><b>Fotoalbum:</b> Rüdiger hat seinen eigenen Alltag: Er putzt sich, knetet sein Schaffell, streckt sich, beobachtet am Fenster Vögel, döst im Sonnenfleck und schubst auch mal einen Stift vom Schreibtisch. Erscheint 📷 über ihm, tippe unten auf 📷 und mach ein Foto. Jedes neue Motiv kommt ins Album im Rucksack und bringt Punkte und ein Herz.</p>
 <p><b>Rüdigers Frühstück:</b> Ab Tag 2 wünscht sich Rüdiger jeden Morgen ein bestimmtes Spezialfutter. Die Sprechblase über ihm zeigt, welches, und der Ring, wie viel Zeit noch bleibt. Füttere ihn bis zum 🍽 auf der Zeitleiste. Das Futter kaufst du im Tierladen. Hast du es nicht, siehst du 🛒 in der Blase. Anderes Futter will er dann nicht. Bekommt er sein Frühstück nicht rechtzeitig, ist er unglücklich: Er verliert 2 Herzen und braucht mehr Zuwendung, bis du ihn mit dem richtigen Futter tröstest.</p>
-<p><b>Rüdigers Freundschaft:</b> Spielst du mit Rüdiger, sammelt er Herzen und schaltet Neues frei: Er rollt sich beim Kuscheln auf den Rücken, bekommt ein Halsband (im Rucksack an- und ausziehen), macht Männchen und wird dein bester Freund. Mit dem Spielzeug, das ihm am meisten Spass macht, gibt es doppelte Punkte, und manchmal spielt er allein damit. Holt ihr an einem Tag zweimal volle Punkte, bringt er dir am nächsten Morgen ein Geschenk. Bei dreimal träumt er beim Mondmoment den Spielzeugtraum. Fängst du ihn beim Revierlauf ein, bekommst du ein Zimmermädchen-Häubchen, das du ihm im Rucksack anziehen kannst.</p>
+<p><b>Rüdigers Freundschaft:</b> Spielst du mit Rüdiger, sammelt er Herzen und schaltet Neues frei: Er rollt sich beim Kuscheln auf den Rücken, hüpft aufs Dach und schaut aus dem Estrich, guckt dich ganz besonders süss an und wird dein bester Freund. Mit dem Spielzeug, das ihm am meisten Spass macht, gibt es doppelte Punkte, und manchmal spielt er allein damit. Holt ihr an einem Tag zweimal volle Punkte, bringt er dir am nächsten Morgen ein Geschenk. Bei dreimal träumt er beim Mondmoment den Spielzeugtraum. Im Tierladen gibt es für 5000 Pfotenpunkte ein Zimmermädchen-Häubchen, das du ihm im Rucksack anziehen kannst.</p>
 <p><b>Der Redner:</b> Ab und zu kommt ein Mann und nervt Rüdiger. Tippe einmal auf ihn. Die Frau holt den Gartenschlauch, geht hin und spritzt ihn automatisch nass. Das dauert ein paar Sekunden, bis er genug hat. Spritzt du ihn schon auf dem Weg zur Katze, wird er zurückgedrängt und kommt gar nicht erst zum Reden. Sonst redet er auf die Katze ein, sie wird genervt und faucht.</p>
 <p><b>Der Stinker:</b> Manchmal kommt stattdessen ein kleiner Mann mit Bierbauch, Unterhemd und Socken in Sandalen, der fürchterlich riecht. Grüne Duftwolken und Fliegen umschwirren ihn. Gleiche Sache: Tippe auf ihn, und die Frau duscht ihn mit dem Schlauch, bis er sauber ist. Dann zieht er frisch und glitzernd von dannen.</p>
 <p><b>Die Bank:</b> Nachts steht der Mond einmal ganz hoch. Sitzt du in diesem Moment auf der Bank, gibt es Bonuspunkte und ein spirituelles Katzen-Erlebnis. Es gibt vier verschiedene: eine Verwandlung, eine kosmische Erhebung, eine bunte Reise und den kosmischen Katzenfrieden, bei dem ein Flugzeug Blumen abwirft. Danach schlafen die Katzen ein und ein neuer Morgen beginnt. Auf der Zeitleiste oben zeigt 🌙, wann es soweit ist.</p>
 <p><b>Garten:</b> Zwischen Rüdigers Haus und Müngelis Lager liegt ein kleiner Garten mit Bank, Baum und der Schlauchrolle. Tippe auf die Rolle beim Baum, dann geht die Frau hin. Steht sie dort, erscheint über ihr der Knopf «Schlauch nehmen». Er reicht durch den ganzen Garten bis ins Büro und ins Lager. Damit vertreibst du den Redner und hältst beim Revierlauf um 18 Uhr Krähen, Füchse und Waschbären von Rüdiger fern.</p>
-<p><b>Müngelis Ausflug:</b> Ab und zu klettert Müngeli tagsüber die Leiter hinunter und schlendert in den Garten. Rüdiger bemerkt sie und schleicht hinterher. Tippe auf ihn: Die Frau stellt sich dazwischen und streichelt ihn. Hast du vorher unten ein Spielzeug gewählt, spielt sie damit, und das lenkt ihn doppelt so lange ab. Kommt Müngeli ungestört zurück ins Lager, gibt es Punkte und ein Dankestänzchen.</p>
-<p><b>Glühwürmchenjagd:</b> In manchen Nächten jagt Rüdiger Glühwürmchen im Garten. Tippe auf die hell funkelnden, dann springt er danach. Jedes gefangene steigt in den Himmel und leuchtet dort kurz als Stern.</p>
-<p><b>Rüdiger oben:</b> Manchmal hüpft Rüdiger von selbst aufs Dach oder schaut aus dem runden Estrichfenster. Dann ist das Sofa frei: Tippe darauf, und die Frau setzt sich hin. Kurz darauf kommt Rüdiger freudig heruntergesprungen und kuschelt schnurrend auf ihrem Schoss.</p>
-<p><b>Revierlauf:</b> Jeden Tag um 18 Uhr (🐈 auf der Zeitleiste) wird Rüdiger unruhig: grosse Augen, gesträubtes Fell, ein buschiger Schwanz. Jetzt entscheidest du. Tippst du rechtzeitig auf die Bürotür (oder «Tür schliessen»), schliesst die Frau sie. Rüdiger bleibt dann beleidigt drin, zieht sich in den Estrich oder aufs Dach zurück und schaut sehnsüchtig zu Müngeli hinüber. Lässt du die Tür offen, läuft er durch den Garten zu Müngeli. Die Frau folgt ihm mit dem Schlauch. Halte gedrückt und spritze Krähen, Füchse und Waschbären weg, bevor sie Rüdiger erschrecken. Hat er zu viel Angst, flüchtet er nach Hause.</p>
+<p><b>Müngelis Ausflug:</b> Ab und zu klettert Müngeli tagsüber die Leiter hinunter und schlendert in den Garten. Rüdiger bemerkt sie. Oben erscheint die Frage, ob er in den Garten darf: «Bleib drin» schliesst die Bürotür, Müngeli hat ihre Ruhe (kleiner Bonus). «Ja, raus!» (oder Zeit abgelaufen) und er schleicht hinterher. Dann tippe auf ihn: Die Frau stellt sich dazwischen und streichelt ihn. Hast du vorher unten ein Spielzeug gewählt, spielt sie damit, und das lenkt ihn doppelt so lange ab. Kommt Müngeli ungestört zurück ins Lager, gibt es Punkte und ein Dankestänzchen.</p>
+<p><b>Glühwürmchenjagd:</b> Jeden Abend bei Einbruch der Dunkelheit, noch vor dem Mondmoment, will Rüdiger Glühwürmchen jagen. Oben fragt das Spiel, ob er raus darf. Lässt du ihn, jagt er im Garten. Tippe auf die hell funkelnden, dann springt er danach. Jedes gefangene steigt in den Himmel und leuchtet dort kurz als Stern.</p>
+<p><b>Rüdiger oben:</b> Ab 30 Herzen hüpft Rüdiger manchmal von selbst aufs Dach oder schaut aus dem runden Estrichfenster. Dann ist das Sofa frei: Tippe darauf, und die Frau setzt sich hin. Kurz darauf kommt Rüdiger freudig heruntergesprungen und kuschelt schnurrend auf ihrem Schoss.</p>
+<p><b>Revierlauf:</b> Jeden Tag um 18 Uhr (🐈 auf der Zeitleiste) wird Rüdiger unruhig: grosse Augen, gesträubtes Fell, ein buschiger Schwanz. Jetzt entscheidest du. Tippst du rechtzeitig auf «Tür schliessen» (oder auf die Bürotür), fällt sie sofort zu, egal wo die Frau gerade ist. Rüdiger bleibt dann beleidigt drin, zieht sich in den Estrich oder aufs Dach zurück und schaut sehnsüchtig zu Müngeli hinüber. Lässt du die Tür offen, läuft er durch den Garten zu Müngeli. Die Frau folgt ihm mit dem Schlauch. Halte gedrückt und spritze Krähen, Füchse und Waschbären weg, bevor sie Rüdiger erschrecken. Hat er zu viel Angst, flüchtet er nach Hause.</p>
 <p><b>Ausflüge:</b> Ganz links neben dem Gewächshaus steht das rote Auto. Tippe darauf, um die Landkarte zu öffnen. Von dort aus fährst du zur einsamen Berghütte auf der Bergalp. Dort kannst du auf der Bank die Ruhe geniessen, im Ofen Feuer machen und am Brunnen trinken. Solange du unterwegs bist, steht die Zeit zu Hause still.</p>
 <p><b>Bergalp:</b> Kräuter pflückst du einfach im Vorbeilaufen, oder du tippst sie an. Oben links siehst du, wie viele du hast. Verjag den Hirsch, wenn er sie fressen will. Mit der Pendeluhr in der Hütte stellst du sofort auf Nacht oder Tag. Am Fernrohr rechts neben der Hütte suchst du nachts Sternenkatzen: Oben links siehst du die gesuchte Form, finde ihre Sterne zwischen den anderen. Je weniger Fehler und Tipps, desto mehr Sterne und Punkte. Gefundene Sternenkatzen leuchten danach nachts über der Gärtnerei. Am Tisch machst du Tee aus Bergminze und Arnika. Im Möbelgeschäft im Dorf kannst du die Hütte einrichten. Auf der Karte kannst du Katzen auf die Alp mitnehmen.</p>
 <p><b>Läden im Dorf:</b> Auf dem Altstadt-Markt gibt es den Tierladen (Spielzeug und Spezialfutter) und das Möbelgeschäft (Einrichtung für die Berghütte). Tippe auf eine Ladentür.</p>
@@ -190,7 +195,8 @@ const TOYS=[
 {id:'tunnel',n:'Knistertunnel',e:'⛺',p:1300,v:26,d:'Zum Durchschlüpfen und Auflauern.'}];
 let SV=load()||{pts:0,toys:[],day:1,best:0};SV.food=SV.food||{};if(SV.day==1&&!SV.foodGift){SV.food.fish=(SV.food.fish||0)+1;SV.foodGift=1}SV.inv=Object.assign({edel:0,enz:0,arn:0,minz:0,tea:0,b_dah:0,b_hort:0,b_rose:0,b_lav:0,b_sun:0},SV.inv||{});delete SV.inv.cheese;['b_dah','b_hort','b_rose','b_lav'].forEach(k=>{SV.inv.b_sun+=SV.inv[k]||0;delete SV.inv[k]});SV.rack=[];SV.hut=SV.hut||[];SV.found=SV.found||{};SV.wis=SV.wis||[];
 SV.rudi=Object.assign({h:0,fav:{},gifts:{},col:0,capOwn:0},SV.rudi||{});SV.st=Object.assign({sun:0,sold:0,man:0,rev:0,dance:0,bf:0},SV.st||{});SV.ach=SV.ach||{};SV.rudi.wear=Object.assign({col:true,cap:false},SV.rudi.wear||{});
-const RLV=[10,30,60,100],RUNL=['Rollt sich beim Kuscheln auf den Rücken','Trägt ein Halsband mit Glöckchen','Macht Männchen, wenn du vorbeikommst','Beste Freunde: braucht weniger Zuwendung'],COLC=[['Rot','#c0392b'],['Blau','#3a8ad8'],['Grün','#3aa060'],['Rosa','#e870a0'],['Gold','#e8b830']];
+const RLV=[10,30,60,100],RUNL=['Rollt sich beim Kuscheln auf den Rücken','Hüpft aufs Dach und schaut aus dem Estrich','Guckt dich ganz süss an, wenn du vorbeikommst','Beste Freunde: braucht weniger Zuwendung'],COLC=[['Rot','#c0392b'],['Blau','#3a8ad8'],['Grün','#3aa060'],['Rosa','#e870a0'],['Gold','#e8b830']];
+SV.mung=Object.assign({h:0},SV.mung||{});const MLV=[6,15,30],MUNL=['Begrüsst dich mit einem Tänzchen, wenn du ins Lager hochkletterst','Legt dir manchmal morgens ein Geschenk an die Leiter','Beste Freundinnen: braucht weniger Milch'],mLvl=()=>MLV.filter(v=>SV.mung.h>=v).length,mHeart=(n,x,y)=>{const L0=mLvl();SV.mung.h+=n;FT.push({x,y,t:'+'+n+' ♥ Müngeli',l:0,col:'#ffc0e0'});if(mLvl()>L0)setTimeout(()=>ban('💗 Müngeli mag dich noch mehr!','Neu freigeschaltet: '+MUNL[mLvl()-1]+'.'),900);save()};
 const rLvl=()=>RLV.filter(v=>SV.rudi.h>=v).length,rFav=()=>{let b=null,m=15;for(const[id,n] of Object.entries(SV.rudi.fav))if(n>m&&SV.toys.includes(id)){m=n;b=id}return b};
 const GIFTS=[{id:'feder',n:'Amselfeder',e:'🪶',w:30,v:5,d:'Eine weiche Amselfeder. Stolz gefangen … oder gefunden.'},{id:'blatt',n:'Buntes Herbstblatt',e:'🍂',w:30,v:5,d:'Rot und gold, frisch aus dem Garten.'},{id:'knopf',n:'Verlorener Knopf',e:'🔘',w:18,v:10,d:'Von wessen Jacke der wohl stammt?'},{id:'socke',n:'Einzelne Socke',e:'🧦',w:12,v:10,d:'Wo ist nur die andere?'},{id:'murmel',n:'Glänzende Murmel',e:'🔮',w:6,v:25,d:'Sie funkelt im Licht. Ein echter Schatz!'},{id:'edelw',n:'Edelweiss',e:'🤍',w:3,v:40,d:'Wie kommt das denn von der Alp hierher?'},{id:'ring',n:'Goldring',e:'💍',w:1,v:100,d:'Ein echter Goldring! Wem der wohl gehört?'}];
 const GIFTX=652;
@@ -267,10 +273,12 @@ const moonStr=p=>p>.62?Math.exp(-Math.pow((p-.9)/.11,2)):0;
 function newDay(slept){
  const dur=DAY*(slept?G.pS:1),rating=G.care/dur,st=rating>.78?3:rating>.6?2:rating>.4?1:0,got=Math.round(G.tally);
  SV.day++;SV.best=Math.max(SV.best||0,got);
- G.vis=null;cv.style.filter='';G.dayT=0;G.slept=0;G.ff=0;G.tally=0;G.care=0;G.manT=rnd(35,55);G.perfect=0;man=null;Wm.hose=0;Wm.sit=0;INT=null;G.nerv=null;G.door=0;if(G.trip)tripEnd(0);G.glow=null;G.skyF=null;RO.on=0;RO.hop=null;RO.mode='';
+ G.vis=null;cv.style.filter='';G.dayT=0;G.slept=0;G.ff=0;G.tally=0;G.care=0;G.manT=rnd(15,30);G.perfect=0;man=null;Wm.hose=0;Wm.sit=0;INT=null;G.nerv=null;G.door=0;if(G.trip)tripEnd(0);G.glow=null;G.ask=null;G.doorOpenT=0;G.skyF=null;RO.on=0;RO.hop=null;RO.mode='';
  cats.forEach(k=>{k.need=slept?15:55;k.annoy=0;k.sleep=0;k.purr=0});bowl.milk=0;const gift=(G.rFull||0)>=2&&!SV.gift;if(gift)SV.gift=pickGift();G.rFull=0;save();
  ban('Guten Morgen – Tag '+SV.day,(slept?'Die Katzen haben gut geschlafen. ':'Die Katzen haben unruhig geschlafen. ')+'Gestern: +'+got+' Punkte  '+'★'.repeat(st)+'☆'.repeat(3-st)+(gift?'  🎁 Rüdiger hat dir etwas vor das Sofa gelegt! Lauf einfach daran vorbei.':''));
  if(SV.day>=2){bfNew();save();bfMsg()}
+ if(SV.day==2)setTimeout(()=>ban('Neu ab heute','Besucher am Gartentor (Schlauch bereithalten!), Müngelis Ausflug in den Garten und um 18 Uhr Rüdigers Revierlauf.'),7000);if(SV.day==3)setTimeout(()=>ban('Neu ab heute','Bei Einbruch der Dunkelheit jagt Rüdiger Glühwürmchen im Garten.'),7000);
+ mungMorning();
  arp();birds()}
 /* ===== Eingabe ===== */
 const toW=e=>({x:camX+e.clientX/SC,y:(e.clientY-(H-WH*SC))/SC});
@@ -281,6 +289,7 @@ function pick(x,y){
  if(SV.gift&&Math.abs(x-GIFTX)<80&&y>GY-120&&y<GY+70)return{t:'gift'};
   {const q=rDrawPos(cats[0]);if(cats[0].beh&&EXC.includes(cats[0].beh.type)&&Math.abs(x-q.x)<60&&y>q.y-95&&y<q.y+28)return{t:'cat',k:cats[0]}}
  if(G.nerv&&G.nerv.st=='nerv'&&!G.nerv.close&&x>715&&x<835&&y>GY-240&&y<GY+25)return{t:'door'};
+ if(G.loc=='home'&&VIS.u&&VIS.u.st=='sit'&&Math.abs(x-VIS.u.x)<60&&y>GY-130&&y<GY-10)return{t:'visit'};
  if(G.loc=='home'&&G.trip&&RO.on&&RO.mode!='home'&&Math.abs(x-RO.x)<75&&y>RO.y-110&&y<RO.y+30)return{t:'tdist'};
  if(G.loc=='home'&&cats[0].beh&&UP.includes(cats[0].beh.type)&&!G.lap&&x>400&&x<665&&y>GY-135&&y<GY+10)return{t:'sofa'};
  for(const k of cats)if(!(G.trip&&k.id=='B')&&!(RO.on&&k.id=='A')&&!(G.nerv&&k.id=='A')&&!(k.id=='A'&&k.beh&&UP.includes(k.beh.type))&&Math.abs(x-k.x)<64&&y>k.y-(k.id=='A'?92:120)&&y<k.y+24)return{t:'cat',k};
@@ -289,7 +298,7 @@ function pick(x,y){
  for(const rx of REELS)if(Math.abs(x-rx)<48&&y>GY-100&&y<GY+30)return{t:'hose',rx};
  if(Math.abs(x-BENCH)<80&&y>GY-130&&y<GY+30)return{t:'bench'};
  return{t:'walk',x,y}}
-function down(x,y){if(G.vis||G.trans||(G.loc=='jungle'&&(J.quiz||(J.pan&&J.pan.st!='leave'))))return;const db=dropBtn();if(db&&Math.abs(x-db.bx)<db.w/2+8&&Math.abs(y-db.by)<26){audio();if(db.k=='take'){INT={t:'hosetake'};vib(15);return}if(db.k=='hose'){Wm.hose=0;HOSE.manual=0;HOSE.pickT=HOSE.putT=null;Wm.hand=null;chime(SC5[1],.18)}else{Wm.carry=null;chime(SC5[2],.15)}if(INT&&INT.t!='walk')INT=null;return}ptr.down=1;ptr.x=x;ptr.y=y;if(REV.on&&G.loc=='home'){INT=null;if(REV.st=='stalk'){if(!REV.grab){REV.grab=1;Wm.hose=0;HOSE.manual=0;FT.push({x:Wm.x,y:GY-200,t:'Rüdiger, nein!',l:0,col:'#ffe29a'})}return}if(REV.st=='carry'||REV.st=='rocket')return;HOSE.manual=1;return}if(MRK.on&&MRK.t>.6){let hh=pick(x,y);if(hh&&hh.k===cats[1]){show('Müngeli ist weg','Sie hat sich verkrochen und kommt gleich wieder.');return}}if(G.loc=='home'&&!selToy&&INT&&INT.t=='play'&&INT.on&&Math.abs(x-INT.k.x)<320&&Math.abs(y-INT.k.y)<230){INT.tap={x,y};INT.pressed=1;return}if(G.loc=='home'&&glowTap(x,y)){ptr.down=0;return}let h=pick(x,y);
+function down(x,y){if(G.fin||G.vis||G.trans||(G.loc=='jungle'&&(J.quiz||(J.pan&&J.pan.st!='leave'))))return;const db=dropBtn();if(db&&Math.abs(x-db.bx)<db.w/2+8&&Math.abs(y-db.by)<26){audio();if(db.k=='take'){INT={t:'hosetake'};vib(15);return}if(db.k=='hose'){Wm.hose=0;HOSE.manual=0;HOSE.pickT=HOSE.putT=null;Wm.hand=null;chime(SC5[1],.18)}else{Wm.carry=null;chime(SC5[2],.15)}if(INT&&INT.t!='walk')INT=null;return}ptr.down=1;ptr.x=x;ptr.y=y;if(REV.on&&G.loc=='home'){INT=null;if(REV.st=='stalk'){if(!REV.grab){REV.grab=1;Wm.hose=0;HOSE.manual=0;FT.push({x:Wm.x,y:GY-200,t:'Rüdiger, nein!',l:0,col:'#ffe29a'})}return}if(REV.st=='carry'||REV.st=='rocket')return;HOSE.manual=1;return}if(MRK.on&&MRK.t>.6){let hh=pick(x,y);if(hh&&hh.k===cats[1]){show('Müngeli ist weg','Sie hat sich verkrochen und kommt gleich wieder.');return}}if(G.loc=='home'&&!selToy&&INT&&INT.t=='play'&&INT.on&&Math.abs(x-INT.k.x)<320&&Math.abs(y-INT.k.y)<230){INT.tap={x,y};INT.pressed=1;return}if(G.loc=='home'&&glowTap(x,y)){ptr.down=0;return}let h=pick(x,y);
  if(h.t=='tdist'){h.toy=selToy&&TOYS.find(d=>d.id==selToy)?selToy:null;if(selToy){selToy=null;trayRender()}Wm.carry=null;Wm.sit=0;INT=h;return}
  if(G.loc=='home'&&Wm.hose&&h.t=='hose'){show('Du hast den Schlauch schon','Kurz tippen zum Laufen, gedrückt halten zum Spritzen.');return}
  if(G.loc=='home'&&Wm.hose&&!HOSE.pickT&&h.t!='man'){HOSE.press={t:T,x,y,h};return}
@@ -309,10 +318,10 @@ function revStart(){Object.assign(REV,{on:1,st:'run',fear:0,scT:0,chased:0,th:[]
  man=null;INT=null;Wm.sit=0;Wm.sitA=0;Wm.z=0;Wm.carry=null;if(!Wm.hose)HOSE.rx=REEL;Wm.hose=1;HOSE.idle=0;HOSE.pickT=null;HOSE.putT=null;cats[0].purr=0;
  ban('18:00 – Rüdiger wird wild!','Er läuft sein Revier ab. Halte gedrückt und spritze Krähen, Füchse und Waschbären weg.');meow(.9);setTimeout(()=>meow(1),400)}
 function revEnd(ok){const o=REV.o;REV.on=0;REV.th=[];Wm.tx=null;HOSE.manual=0;Wm.cl=0;
- if(ok=='home'){cats[0].bonT=T+40;SV.st.rev++;if(!SV.rudi.capOwn){SV.rudi.capOwn=1;save();setTimeout(()=>show('Das Häubchen ist jetzt im Rucksack','Im Rucksack kannst du es Rüdiger jederzeit anziehen oder wieder ausziehen.'),6500)}const pts=40+REV.chased*5+Math.round((100-REV.fear)/2);bonus(pts,Wm.x,GY-220,'Gerettet! +'+pts,'#ffe29a');arp();cats[0].purr=1;cats[0].purrT=3;show('Frieden im Haus','Du hast Rüdiger rechtzeitig geschnappt und nach Hause gebracht. Müngeli bleibt verschont.')}
+ if(ok=='home'){SV.st.rev++;const pts=40+REV.chased*5+Math.round((100-REV.fear)/2);bonus(pts,Wm.x,GY-220,'Gerettet! +'+pts,'#ffe29a');arp();cats[0].purr=1;cats[0].purrT=3;show('Frieden im Haus','Du hast Rüdiger rechtzeitig geschnappt und nach Hause gebracht. Müngeli bleibt verschont.')}
  else if(ok=='rocket'){if(REV.chased)bonus(REV.chased*5,Wm.x,GY-220,'+'+REV.chased*5,'#a8ffe0');cats[1].need=Math.min(100,cats[1].need+40);show('Müngeli ist weg!','Wie eine Rakete davongeschossen. Sie kommt bald zurück und braucht dann viel Trost. Morgen bist du schneller!')}
  else{if(REV.chased)bonus(REV.chased*5,Wm.x,GY-220,'+'+REV.chased*5,'#a8ffe0');cats[0].need=Math.min(100,cats[0].need+20);show('Rüdiger hatte Angst','Er ist nach Hause geflüchtet. Morgen um 18 Uhr versucht er es wieder.')}}
-function revLogic(dt){if(!REV.on){if(G.loc=='home'&&!G.slept&&!G.vis&&G.p>=.5&&G.p<.56&&G.revDay!=SV.day&&!cats[0].sleep&&!G.nerv&&!RO.on&&!G.trip)nervStart();return}
+function revLogic(dt){if(!REV.on){if(G.loc=='home'&&!G.slept&&!G.vis&&G.p>=.5&&G.p<.62&&SV.day>=2&&G.revDay!=SV.day&&!cats[0].sleep&&!G.nerv&&!RO.on&&!G.trip&&!G.ask)nervStart();return}
  const o=REV.o;o.ph+=dt;REV.t+=dt;HOSE.idle=0;if(REV.st=='run'||REV.st=='scared'||REV.st=='standoff'||REV.st=='climb')Wm.hose=1;const vw=W/SC;
  if(REV.st=='run'||REV.st=='scared'||REV.st=='standoff'){const tgt=cl(o.x-170,WX0+40,WW-60);if(Math.abs(Wm.x-tgt)>24)Wm.tx=tgt}
  if(REV.st=='run'){o.st='run';o.f=1;o.eyeMode=null;o.x+=62*dt;if(o.x>=LAD-30){REV.st='climb';REV.u=0;REV.sx=o.x}}
@@ -320,7 +329,7 @@ function revLogic(dt){if(!REV.on){if(G.loc=='home'&&!G.slept&&!G.vis&&G.p>=.5&&G
  else if(REV.st=='scared'){o.st='sit';o.eyeMode='wide';REV.scT-=dt;if(REV.scT<=0)REV.st='run'}
  else if(REV.st=='climb'){REV.u=Math.min(1,REV.u+dt/.9);o.st='pounce';o.u=REV.u;o.x=lp(REV.sx,cats[1].x-115,REV.u);o.y=lp(GY+8,LY,REV.u)-Math.sin(REV.u*Math.PI)*70;if(REV.u>=1){REV.st='stalk';REV.t=0;o.y=LY;o.x=cats[1].x-115;REV.hs=0;Wm.tx=null;Wm.hose=0;HOSE.manual=0;HOSE.on=0;Wm.hand=null;chime(SC5[1],.18);show('Rüdiger schleicht sich an!','Schnell, tippe irgendwo hin: Die Frau klettert hoch, schnappt Rüdiger und bringt ihn nach Hause.')}}
  else if(REV.st=='stalk'){const k=cats[1],u=Math.min(1,REV.t/REV.lim);o.x=lp(k.x-115,k.x-58,u);o.y=LY;o.f=1;o.eyeMode=null;o.st=u>.8&&Math.sin(REV.t*9)>0?'wiggle':'stalk';k.annoy=Math.max(k.annoy,.5+u*.5);if((REV.hs-=dt)<=0){REV.hs=1.4;hiss();FT.push({x:k.x,y:k.y-100,t:'Fauch!',l:0,col:'#ffb0a0'})}
-  if(REV.grab){if(Wm.z<LH-.5){if(Wm.z>.5||Math.abs(Wm.x-LAD)<=5){Wm.tx=null;Wm.cl=1}else Wm.tx=LAD}else{const gx=o.x-34;if(Math.abs(Wm.x-gx)>8)Wm.tx=gx;else{Wm.tx=null;REV.st='carry';REV.t=0;o.bonnet=1;meow(1.2);chime(SC5[5],.25);k.annoy=0;FT.push({x:o.x,y:o.y-90,t:'Hab dich!',l:0,col:'#ffe29a'})}}}
+  if(REV.grab){if(Wm.z<LH-.5){if(Wm.z>.5||Math.abs(Wm.x-LAD)<=5){Wm.tx=null;Wm.cl=1}else Wm.tx=LAD}else{const gx=o.x-34;if(Math.abs(Wm.x-gx)>8)Wm.tx=gx;else{Wm.tx=null;REV.st='carry';REV.t=0;meow(1.2);chime(SC5[5],.25);k.annoy=0;FT.push({x:o.x,y:o.y-90,t:'Hab dich!',l:0,col:'#ffe29a'})}}}
   if(REV.st=='stalk'&&REV.t>=REV.lim){REV.st='rocket';REV.t=0;REV.u=0;REV.sx=o.x;MRK.on=1;MRK.t=0;MRK.x0=k.x;MRK.y0=k.y;hiss();setTimeout(meow.bind(null,1.6),150);Wm.tx=null}}
  else if(REV.st=='rocket'){REV.u=Math.min(1,REV.t/.45);o.st=REV.u<1?'pounce':'sit';o.u=REV.u;o.x=lp(REV.sx,MRK.x0-10,REV.u);o.y=LY-Math.sin(REV.u*Math.PI)*40;o.f=1;if(REV.t>3.2)revEnd('rocket')}
  else if(REV.st=='carry'){o.st='curl';o.f=Wm.dir;o.x=Wm.x+Wm.dir*22;o.y=GY-Wm.z-46;o.noShadow=1;o.eyeMode=null;cats[0].purr=.6;if((REV.hs-=dt)<=0){REV.hs=.8;PA.push({k:'h',x:o.x+rnd(-8,8),y:o.y-30,vx:rnd(-8,8),vy:-28,l:0,m:1.4})}
@@ -480,6 +489,7 @@ function doInt(dt){const I=INT;Wm.hand=null;if(!I)return;if(I.t!='bench'&&I.t!='
  const stand=(sx,up)=>{if(!lvl(up?1:0))return 0;if(Math.abs(Wm.x-sx)>6){Wm.tx=sx;return 0}Wm.tx=null;return 1};
  if(I.t=='walk'){if(stand(I.x,I.up))INT=null;return}
  if(I.t=='tdist'){tdistInt(I,dt,stand);return}
+ if(I.t=='visit'){visInt(I,dt,stand);return}
  if(I.t=='sofa'){if(stand(488)){Wm.dir=1;if(!Wm.sit){Wm.sit=1;Wm.carry=null;if(Wm.hose)hoseAway()}}if(Wm.sit&&Wm.sitA>.85)lapStep(dt);return}
  if(I.t=='bench'){if(stand(BENCH-8)){Wm.dir=1;if(!Wm.sit){Wm.sit=1;if(G.p<.66)show('Gemütlich hier','Der Mond ist noch nicht da. Die Katzen warten auf dich.')}}return}
  if(I.t=='hosetake'){if(Wm.hose){INT=null;return}const rx=REEL;if(Wm.carry)Wm.carry=null;if(!stand(rx+58))return;Wm.dir=-1;if(HOSE.pickT==null)HOSE.pickT=T;const el=T-HOSE.pickT;Wm.hand={x:rx+18+Math.min(el,.5)*30,y:GY-56+Math.sin(Math.min(1,el/.3)*Math.PI)*-14};HOSE.rot-=dt*9;if(el>.3){Wm.hose=1;HOSE.rx=rx;HOSE.pickT=null;HOSE.idle=0;chime(SC5[3],.2);INT=null;if(!G.hoseTip){G.hoseTip=1;show('Schlauch in der Hand','Tippe auf den Redner, dann spritzt sie automatisch. Oder halte gedrückt und ziele selbst.')}}return}
@@ -489,7 +499,7 @@ function doInt(dt){const I=INT;Wm.hand=null;if(!I)return;if(I.t!='bench'&&I.t!='
   if(I.t=='hose'){INT=null;return}
   if(!lvl(0))return;const d=man.x-Wm.x;Wm.dir=d>=0?1:-1;if(Math.abs(d)>300)Wm.tx=man.x-Wm.dir*270;else Wm.tx=null;spray(dt);return}
  if(I.t=='hoseput'){INT=null;hoseAway();return}
- if(I.t=='door'){const N=G.nerv;if(!N||N.st!='nerv'){INT=null;return}N.close=1;if(!stand(DOORX+46))return;Wm.dir=-1;if(I.t0==null)I.t0=T;const el=T-I.t0;Wm.hand={x:Wm.x-30-Math.min(1,el/.35)*10,y:GY-118};if(el>.3&&!G.door){G.door=1;blip();vib(30)}if(el>.9)INT=null;return}
+ if(I.t=='door'){const N=G.nerv;INT=null;if(N&&N.st=='nerv'&&!N.close){N.close=1;G.door=1;blip();vib(30)}return;if(!N||N.st!='nerv'){INT=null;return}N.close=1;if(!stand(DOORX+46))return;Wm.dir=-1;if(I.t0==null)I.t0=T;const el=T-I.t0;Wm.hand={x:Wm.x-30-Math.min(1,el/.35)*10,y:GY-118};if(el>.3&&!G.door){G.door=1;blip();vib(30)}if(el>.9)INT=null;return}
  if(I.t=='sbench'){if(SHY.u&&SHY.u.st!='leave'&&SHY.u.st!='flee'&&I.bx!=A.seeBx&&Wm.sit){INT=null;return}if(stand(I.bx-8)){A.seeBx=I.bx;Wm.dir=1;if(!Wm.sit){Wm.sit=1;show('Stille am See','Nur das leise Plätschern der Wellen. Bleib eine Weile sitzen.')}}return}
  if(I.t=='shopgo'){if(!stand(SHOPS[I.k].x-40))return;Wm.dir=1;INT=null;openShop(I.k);return}
  if(I.t=='stall'){if(!stand(STALL-100))return;Wm.dir=1;INT=null;openTrade();return}
@@ -522,7 +532,7 @@ function spawnMan(){const k=cats[0],st=G.lastMan=='talk'?Math.random()<.65:Math.
 const LINES=['Und dann sagte ich zu ihm …','Hast du schon gehört, dass …','Also bei meiner Tante …','Blablabla …','Katzen sind ja eigentlich …','Ich erzähl dir mal was!','Jaja, und übrigens …','Weißt du, ich hatte ja mal …'],FLEE=['Brrr! Kalt!','Ich geh ja schon!','Das war doch nur Spaß!','Pfui, nass!'],SLINES=['Riecht ihr das auch? Ich nicht.','Duschen? Nur in Schaltjahren!','Wasser ist überbewertet.','Mmmh, meine Wandersocken …','Ich bin ganz natürlich!','Komm, Mieze, schnupper mal!','Parfüm brauch ich nicht.','Hihi, Achselzeit!'],SFLEE=['Huch, eine Dusche!','Oh … ich rieche nach Frühling!','Brrr, aber sauber!','Ist das etwa … Seife?'];
 const mLine=()=>(man.stink?SLINES:LINES)[man.li++%8],mFlee=()=>(man.stink?SFLEE:FLEE)[Math.floor(Math.random()*4)];
 function manLogic(dt,p){
- if(!man){if(!G.slept&&p>.06&&p<.6){G.manT-=dt;if(G.manT<=0)spawnMan()}return}
+ if(!man){if(!G.slept&&p>.06&&p<.6){G.manT-=dt;if(G.manT<=0&&SV.day>=2&&!G.trip&&!G.ask&&!RO.on&&!G.glow)spawnMan()}return}
  man.t+=dt;man.wet=Math.max(0,man.wet-2.5*dt);
  if(man.st=='in'){const tx=man.cat.id=='A'?man.cat.x+150:1478+OFF,d=tx-man.x;man.dir=Math.sign(d)||1;man.wk+=dt*9;if(man.wet>18){const rd=Math.sign(GATE-man.x)||1;man.x+=rd*70*dt;man.wk+=dt*6;if(man.wet>=100||Math.abs(GATE-man.x)<8){man.st='flee';man.txt=mFlee();bonus(30,man.x,GY-170,man.stink?'Frisch geduscht! +30':'Abgewehrt! +30','#a8ffe0');G.manN=(G.manN||0)+1;if(man.stink){SV.st.stink=(SV.st.stink||0)+1;spark(man.x,GY-110,16,'#ffffff')}else SV.st.man++;return}}else man.x+=man.dir*Math.min(Math.abs(d),120*dt);
   if(Math.abs(d)<4){man.st='talk';man.t=0;man.dir=man.cat.x>man.x?1:-1;man.txt=mLine();man.sayT=2.6}}
@@ -530,10 +540,10 @@ function manLogic(dt,p){
   man.babT-=dt;if(man.babT<=0){if(man.stink){man.babT=rnd(2.5,4);if(Math.random()<.5)buzz()}else{man.babT=rnd(.14,.32);blip()}}
   if(man.wet>=100){man.st='flee';man.txt=mFlee();bonus(20,man.x,GY-170,man.stink?'Sauber! +20':'Verscheucht! +20','#a8ffe0');man.cat.need=Math.max(0,man.cat.need-25);G.manN=(G.manN||0)+1;if(man.stink){SV.st.stink=(SV.st.stink||0)+1;spark(man.x,GY-110,16,'#ffffff')}else SV.st.man++}
   else if(man.t>80){man.st='flee';man.txt=man.stink?'Na gut, ich geh wieder … muffeln.':'Na dann … tschüss!';man.cat.need=Math.min(100,man.cat.need+20);show('Er geht von allein','Aber '+man.cat.n+' ist noch verstimmt.')}}
- else{const d=GATE-man.x;man.dir=Math.sign(d)||1;man.x+=man.dir*Math.min(Math.abs(d),300*dt);man.wk+=dt*14;if(Math.abs(d)<6){man=null;G.manT=rnd(45,70)}}}
+ else{const d=GATE-man.x;man.dir=Math.sign(d)||1;man.x+=man.dir*Math.min(Math.abs(d),300*dt);man.wk+=dt*14;if(Math.abs(d)<6){man=null;G.manT=rnd(25,40)}}}
 function step(dt){
  T+=dt;transStep(dt);G.spray=0;G.pour=0;G.fill=0;HOSE.on=0;
- if(G.vis){G.vis.t+=dt;if(G.vis.t>=G.vis.dur)endVis()}else if(G.ff)G.dayT+=dt*DAY*(1-G.pS)/5;else G.dayT+=dt*(G.ms>=.8&&!G.slept?.3:1);
+ if(G.vis){G.vis.t+=dt;if(G.vis.t>=G.vis.dur)endVis()}else if(G.ff)G.dayT+=dt*DAY*(1-G.pS)/5;else if(!G.fin)G.dayT+=dt*(G.loc=='home'&&((G.glow&&!G.glow.end)||(G.ask&&G.ask.kind=='glow'))?.12:G.ms>=.8&&!G.slept?.3:G.loc=='home'&&(REV.on||(G.nerv&&G.nerv.st=='nerv'))?.45:1);
  if(G.dayT>=DAY)newDay(!!G.slept);
  const p=G.dayT/DAY,ms=moonStr(p);G.p=p;G.ms=ms;
  // Laufen
@@ -557,7 +567,7 @@ function step(dt){
  if(Wm.hose&&HOSE.manual&&ptr.down&&!(INT&&INT.t=='man')){spray(dt,{x:ptr.x,y:ptr.y})}
  if(Wm.hose&&!HOSE.on&&!(man&&man.st!='flee')&&!(INT&&INT.t=='hoseput')){HOSE.idle+=dt;if(HOSE.idle>25){INT={t:'hoseput'}}}
  HOSE.out+=((Wm.hose?1:0)-HOSE.out)*Math.min(1,dt*3);if(Wm.hose&&Wm.mv)HOSE.rot-=dt*4;if(Wm.hose&&!Wm.hand)Wm.hand={x:Wm.x+Wm.dir*40,y:GY-82,hose:1};
- revLogic(dt);nervStep(dt);lapTick(dt);tripLogic(dt);glowLogic(dt);roStep(dt);mrkStep(dt);if(!REV.on&&!(G.nerv&&G.nerv.st=='nerv'))manLogic(dt,p);imkLogic(dt);
+ if(G.fin)finStep(dt);revLogic(dt);askStep(dt);mungStep(dt);visLogic(dt);nervStep(dt);lapTick(dt);tripLogic(dt);glowLogic(dt);roStep(dt);mrkStep(dt);if(!REV.on&&!(G.nerv&&G.nerv.st=='nerv'))manLogic(dt,p);
  if(!G.slept&&p>.08&&p<.6){G.jetT-=dt;if(G.jetT<=0&&!G.jet){G.jet={t:0,dir:Math.random()<.5?1:-1,y:.13+Math.random()*.14};G.jetT=55+Math.random()*35;}}
  if(G.jet){G.jet.t+=dt;if(G.jet.t>7.5)G.jet=null}
  if(G.owlH>0)G.owlH-=dt;
@@ -566,16 +576,16 @@ function step(dt){
  // Katzen
  cats.forEach(k=>{
   k.sleep=G.slept&&!G.vis?1:0;if(G.vis)k.purrT=1;
-  if(!G.slept&&!(k.fullT>T))k.need=Math.min(100,k.need+k.rate*dt*(1+3*k.annoy)*(k.id=='A'&&rLvl()>=4?.75:1)*(k.sad?1.5:1));if(k.fullT>T&&!G.slept&&(k.fsT=(k.fsT||0)-dt)<=0){k.fsT=1.1;spark(k.x,k.y-(k.id=='A'?60:100),3,'#ffe29a')}
+  if(!G.slept&&!(k.fullT>T))k.need=Math.min(100,k.need+k.rate*dt*(1+3*k.annoy)*(k.id=='A'&&rLvl()>=4?.75:k.id=='B'&&mLvl()>=3?.75:1)*(k.sad?1.5:1));if(k.fullT>T&&!G.slept&&(k.fsT=(k.fsT||0)-dt)<=0){k.fsT=1.1;spark(k.x,k.y-(k.id=='A'?60:100),3,'#ffe29a')}
   const nearM=man&&man.st=='talk'&&man.cat===k;k.annoy+=((nearM?1:0)-k.annoy)*Math.min(1,dt*2);if(nearM&&k.annoy>.45&&((k.hs=(k.hs||0)-dt)<=0)){k.hs=2.6;hiss()}
-  if(k.id=='B'&&bowl.milk>0&&k.need>(G.pour?.5:15)&&k.annoy<.3&&!k.sleep){const d=Math.min(bowl.milk,28*dt);bowl.milk-=d;const r=Math.min(k.need,d);k.need-=r;earn(r*.25,k.x,k.y-110);k.drT=1;k.drank=(k.drank||0)+r;if(k.need<60&&G.pour)k.purrT=1;if(k.need<=.5&&k.drank>12&&T>(k.danceCd||0)){k.drank=0;k.danceCd=T+30;k.danceT=T+4;k.df=k.f;SV.st.dance++;arp();bonus(10,k.x,k.y-150,'Danke! +10','#ffd0e8');if(INT&&INT.k===k)INT=null}}
+  if(k.id=='B'&&bowl.milk>0&&k.need>(G.pour?.5:15)&&k.annoy<.3&&!k.sleep){const d=Math.min(bowl.milk,28*dt);bowl.milk-=d;const r=Math.min(k.need,d);k.need-=r;earn(r*.25,k.x,k.y-110);k.drT=1;k.drank=(k.drank||0)+r;if(k.need<60&&G.pour)k.purrT=1;if(k.need<=.5&&k.drank>12&&T>(k.danceCd||0)){k.drank=0;k.danceCd=T+30;k.danceT=T+4;k.df=k.f;SV.st.dance++;arp();bonus(10,k.x,k.y-150,'Danke! +10','#ffd0e8');mHeart(1,k.x,k.y-180);if(INT&&INT.k===k)INT=null}}
   k.purr+=((k.purrT&&!k.sleep?1:0)-k.purr)*Math.min(1,dt*2.5);k.dr+=((k.drT?1:0)-k.dr)*Math.min(1,dt*5);
   k.purrT=0;k.drT=0;k.pet=Math.max(0,k.pet-dt*.7);
   k.play=INT&&INT.t=='play'&&INT.on&&INT.k===k?1:0;if(!k.play){k.hop=k.crouch=k.wig=k.rub=k.hunt=0;k.hide=0;if(k.f0!=null){k.f=k.f0;k.f0=null}}
   if(!k.play){k.sw=0;k.lk=nearM?{x:man.x,y:GY-120}:(Math.abs(Wm.x-k.x)<260&&!k.sleep?{x:Wm.x,y:GY-Wm.z-110}:null)}
   if(k.id=='B'&&k.df!=null){if(k.danceT>T&&!k.sleep&&!MRK.on){const el=4-(k.danceT-T);k.hop=Math.abs(Math.sin(el*Math.PI*2))*16;k.wig=Math.sin(el*Math.PI)*12;k.sw=Math.abs(Math.sin(el*Math.PI*2+1));k.purrT=1;k.f=Math.floor(el/.5)%2?-k.df:k.df;k.lk=null;if((k.noteT=(k.noteT||0)-dt)<=0){k.noteT=.35;FT.push({x:k.x+rnd(-30,30),y:k.y-120,t:['♪','♫','♬'][Math.floor(Math.random()*3)],l:0,col:'#ffd0e8'});chime(SC5[Math.floor(rnd(3,8))],.08)}}else{k.f=k.df;k.df=null;k.hop=k.wig=k.sw=0}}
   if(k.id=='A'&&G.loc=='home'){const busy=k.play||k.sleep||G.vis||REV.on||(INT&&INT.k===k)||nearM||k.beh||k.ret;
-   if(!busy&&rLvl()>=3&&Wm.mv&&Math.abs(Wm.x-k.x)<200&&T>(k.trickCd||0)&&!(k.rollT>T)){k.trickT=T+2.2;k.trickCd=T+45;bonus(2,k.x,k.y-110,'Männchen! +2','#ffd0e8');meow(1.1)}
+   if(!busy&&rLvl()>=3&&Wm.mv&&Math.abs(Wm.x-k.x)<200&&T>(k.trickCd||0)&&!(k.rollT>T)){k.trickT=T+3;k.trickCd=T+45;bonus(2,k.x,k.y-110,'Sooo süss! +2','#ffd0e8');for(let i=0;i<5;i++)PA.push({k:'h',x:k.x+rnd(-20,30),y:k.y-80,vx:rnd(-20,20),vy:rnd(-50,-25),l:0,m:1.6})}
    const fv=rFav();if(busy||!fv||fv=='tunnel')k.solo=null;else if(k.solo){const el=T-k.solo.t0,so=k.solo;if(el>6)k.solo=null;else{if(so.toy=='ball'){so.x=k.x+k.f*(52+Math.sin(el*2.2)*16);so.y=k.y-8-Math.abs(Math.sin(el*5))*14}else if(so.toy=='nip'){so.x=k.x+k.f*58;so.y=k.y-1;k.rub=Math.sin(T*3)*.7;k.purrT=1}else{so.x=k.x+k.f*(50+Math.sin(el*3)*8);so.y=k.y-4-(so.toy=='feather'?Math.abs(Math.sin(el*4))*18:0)}k.lk={x:so.x,y:so.y};k.sw=Math.max(0,Math.sin(el*6));if(Math.floor(el*2)!=so.b){so.b=Math.floor(el*2);if(so.b%4==0)spark(so.x,so.y,3,'#fff2b0')}}}
    else if(T>(k.soloCd||(k.soloCd=T+rnd(30,50)))){k.soloCd=T+rnd(40,70);k.solo={toy:fv,t0:T,x:k.x,y:k.y}}
    if(!k.solo&&!k.play&&!k.beh)k.rub=0;rBehStep(k,dt,nearM)}
@@ -1066,7 +1076,7 @@ function drawCat(k){const A=k.id!='B',sl=k.sleep,pr=k.purr,an=k.annoy,t=T+k.ph,b
  if(k.dr>.4&&an<.3)E(fx,20.5,3.6,4.4,'#ff8fa8');
  c.strokeStyle='rgba(150,130,140,.75)';c.lineWidth=1.2;for(const s of[-1,1])for(let j=-1;j<=1;j++){c.beginPath();c.moveTo(fx+s*17,13);c.lineTo(fx+s*31,12+j*5);c.stroke()}
  if(k===cats[0]&&(k.bonT>T||SV.rudi.wear.cap)&&!sl)bonnet(fx,-10,1.05);
- if(k===cats[0]&&rLvl()>=2&&SV.rudi.wear.col){const cc=COLC[SV.rudi.col%COLC.length][1];c.strokeStyle=cc;c.lineWidth=5;c.beginPath();c.ellipse(0,hr*.62,hr*.62,hr*.26,0,.1*Math.PI,.9*Math.PI);c.stroke();const bs=Math.sin(T*4+k.ph)*1.5;E(fx+bs,hr*.9+4,4.2,4.2,'#f2c84a');E(fx+bs-1.2,hr*.9+2.8,1.3,1.3,'#fff6c8');LN(fx+bs-2,hr*.9+6,fx+bs+2,hr*.9+6,1,'#8a6a20')}
+
  c.restore();
  // Hilferuf-Blase
  const bfb=k===cats[0]&&G.loc=='home'&&!k.sleep&&!G.vis&&bfNow()&&bfNow().st!='done'?bfNow():null;if(bfb){const bx2=k.x,by2=k.y-104+Math.sin(T*3)*3,d=FOOD.find(x=>x.id==bfb.want),late=bfb.st=='late',fr=late?0:cl(1-G.p/BFEND,0,1);c.restore();c.save();E(bx2,by2,22,22,'rgba(255,252,244,.97)');c.fillStyle='rgba(255,252,244,.97)';c.beginPath();c.moveTo(bx2-5,by2+19);c.lineTo(bx2,by2+30);c.lineTo(bx2+6,by2+19);c.fill();c.lineWidth=3.5;c.strokeStyle='rgba(0,0,0,.12)';c.beginPath();c.arc(bx2,by2,24,0,TAU);c.stroke();if(!late){c.strokeStyle=fr<.3?'#ff7a7a':'#ffb050';c.beginPath();c.arc(bx2,by2,24,-Math.PI/2,-Math.PI/2+TAU*fr);c.stroke()}c.font='24px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText(late?'😿':d.e,bx2,by2+1);if(late){c.font='14px serif';c.fillText(d.e,bx2+18,by2-16)}else if(!(SV.food[d.id]>0)){c.font='13px serif';c.fillText('🛒',bx2+19,by2-17)}c.restore();c.save()}
@@ -1337,8 +1347,8 @@ function drawRudi(o){const pal=o.pal||{},st=o.st,ph=o.ph,Pb=pal.b||'#aab1be',Ps=
   c.beginPath();c.ellipse(0,0,hr,hr*.9,0,0,TAU);c.strokeStyle=OL;c.lineWidth=2;c.stroke();
   const lx=cl(((b.x-o.x)*o.f/CS-hx)*.02,-2.5,3),ly=cl(((b.y-o.y)/CS-hy)*.03,-3,2.5);
   for(const ex of[-6,14]){if(mode=='happy'||mode=='sleep'){c.strokeStyle='#3a2a30';c.lineWidth=2.2;c.beginPath();if(mode=='happy')c.arc(ex,5,5,1.1*Math.PI,1.9*Math.PI);else c.arc(ex,1,5,.12*Math.PI,.88*Math.PI);c.stroke()}
-   else{const h=mode=='wide'?8.6:7.4;E(ex,2,6,h,'#2a2024');E(ex,2.4,4.8,h*.84,EYE);E(ex+lx,2+ly,mode=='wide'?3.6:2.6,h*.7,'#1b1418');E(ex-1.8,-1.6,2.2,2.2,'#fff');if(mode=='sad'){c.save();c.beginPath();c.ellipse(ex,2,6.6,h+.6,0,0,TAU);c.clip();c.fillStyle=Pb;c.beginPath();const ti=ex<4?1:-1;c.moveTo(ex-8,-9);c.lineTo(ex+8,-9);c.lineTo(ex+8,1-ti*2.4);c.lineTo(ex-8,1+ti*2.4);c.closePath();c.fill();c.restore();LN(ex-6,1+(ex<4?2.2:-2.2)*0+(ex<4?1.6:-1.6),ex+6,1-(ex<4?1.6:-1.6),1.8,'#3a2a30')}}}
-  E(-10,10,5.5,3.2,'rgba(255,120,150,'+(mode=='happy'?.65:.4)+')');E(20,10,5.5,3.2,'rgba(255,120,150,'+(mode=='happy'?.65:.4)+')');
+   else{const h=mode=='wide'?8.6:7.4;E(ex,2,6,h,'#2a2024');E(ex,2.4,4.8,h*.84,EYE);E(ex+lx,2+ly,mode=='wide'?3.6:2.6,h*.7,'#1b1418');E(ex-1.8,-1.6,2.2,2.2,'#fff');if(mode=='cute'){E(ex,2.6,6.4,9.6,'#2a2024');E(ex,3,5.4,8.6,EYE);E(ex+lx*.4,3.6,4.4,7,'#1b1418');E(ex-1.8,-.8,2.6,2.8,'#fff');E(ex+1.8,6,1.3,1.3,'#fff');E(ex+2.2,-2.6,1,1,'#fff')}if(mode=='sad'){c.save();c.beginPath();c.ellipse(ex,2,6.6,h+.6,0,0,TAU);c.clip();c.fillStyle=Pb;c.beginPath();const ti=ex<4?1:-1;c.moveTo(ex-8,-9);c.lineTo(ex+8,-9);c.lineTo(ex+8,1-ti*2.4);c.lineTo(ex-8,1+ti*2.4);c.closePath();c.fill();c.restore();LN(ex-6,1+(ex<4?2.2:-2.2)*0+(ex<4?1.6:-1.6),ex+6,1-(ex<4?1.6:-1.6),1.8,'#3a2a30')}}}
+  {const bl=mode=='happy'||mode=='cute'?.7:.4;E(-10,10,5.5,3.2,'rgba(255,120,150,'+bl+')');E(20,10,5.5,3.2,'rgba(255,120,150,'+bl+')')}
   c.fillStyle='#f48fa8';c.beginPath();c.moveTo(1,9);c.quadraticCurveTo(4,7.6,7,9);c.quadraticCurveTo(4,13,1,9);c.fill();
   c.strokeStyle='#8a5a60';c.lineWidth=1.5;c.beginPath();if(mode=='chatter'){E(4,16,3,2+Math.abs(Math.sin(T*30))*2,'#a04a5a')}else if(mode=='sad'){c.beginPath();c.arc(4,18,3.6,1.15*Math.PI,1.85*Math.PI);c.stroke()}else{c.arc(1.5,13,2.6,0,.95*Math.PI);c.stroke();c.beginPath();c.arc(6.5,13,2.6,.05*Math.PI,Math.PI);c.stroke()}
   c.strokeStyle='rgba(150,130,140,.75)';c.lineWidth=1;for(const sd of[-1,1])for(let j=-1;j<=1;j++){c.beginPath();c.moveTo(4+sd*13,11);c.lineTo(4+sd*26,10+j*4);c.stroke()}
@@ -1349,6 +1359,7 @@ function drawRudi(o){const pal=o.pal||{},st=o.st,ph=o.ph,Pb=pal.b||'#aab1be',Ps=
  else if(st=='pounce'){const r=-.35+o.u*.6;c.save();c.rotate(r);tail(-38,-30,-60,-34,-78,-22);leg(-28,-26,-64,-10,Ps);body(0,-30,42,12,0);leg(-22,-26,-58,-18);leg(28,-34,64,-56);leg(22,-32,62,-44,Ps);head(48,-46,.1,'wide');c.restore()}
  else if(st=='sit'||st=='swat'){const sw=Math.sin(ph*1.5)*3;tail(-16,-6,-8,10,20+sw,4);E(-10,-12,17,13,Pb);c.beginPath();c.ellipse(-10,-12,17,13,0,0,TAU);c.strokeStyle=OL;c.lineWidth=1.6;c.stroke();body(-2,-30,19,26,0);E(8,-32,9,15,Pw);leg(6,-14,6,0);
   if(st=='swat'){const a=Math.sin(ph*12);leg(14,-34,28+a*6,-66-Math.abs(a)*8)}else leg(15,-14,15,0);const up=b.y<o.y-80;head(6,-62,up?-.25:0,o.eyeMode||(up?'wide':'open'))}
+ else if(st=='cute'){tail(-14,-4,-2,9,22,3);E(-8,-11,16,12,Pb);c.beginPath();c.ellipse(-8,-11,16,12,0,0,TAU);c.strokeStyle=OL;c.lineWidth=1.6;c.stroke();body(-1,-30,18,26,0);E(8,-30,9,16,Pw);leg(5,-16,4,0);leg(13,-16,13,0);const tl=Math.sin(ph*1.6)*.12-.18;head(6,-63,tl,o.eyeMode||'cute')}
  else if(st=='roll'){const w=Math.sin(ph*6);tail(-30,-10,-52,-6+w*4,-64,-14);body(0,-16,34,13,0);E(2,-24,24,7,Pw);for(const [hx,ph2] of[[-18,0],[-8,1],[14,2],[24,3]])leg(hx,-22,hx+Math.sin(ph*6+ph2)*5,-44-Math.abs(Math.sin(ph*6+ph2))*4);head(38,-20,.7,'happy')}
  else if(st=='stretch'){const s2=Math.sin(Math.min(1,ph/1.2)*Math.PI);tail(-30,-30-10*s2,-46,-48-14*s2,-52,-64-10*s2);leg(-22,-26-8*s2,-24,0,Ps);body(0,-22-6*s2,38,12,.2*s2);leg(-14,-26-8*s2,-14,0);leg(24,-14,44+12*s2,-2,Ps);leg(30,-14,52+12*s2,0);head(46+6*s2,-18+8*s2,.18*s2,s2>.45?'chatter':'sleep')}
  else if(st=='curl'){const br=Math.sin(ph*2)*1;tail(-26,-6,-6,8,20,-1);body(0,-13+br*.3,30,12+br*.4,0);E(18,-4,7,4,Pw);E(8,-3,7,4,Pw);head(24,-18,.15,'happy')}
@@ -1577,7 +1588,7 @@ function starLoop(n){if(!$('#stars').classList.contains('on'))return;ST.raf=requ
   if(t<2.2&&!cs.zzz){x.font='italic 20px Georgia,serif';x.fillStyle='#ffe29a';x.textAlign='center';x.fillText(cs.id=='maus'?'Piep!':cs.id=='fisch'?'Blubb!':'Miau!',cw*.5,ch*.12+Math.sin(t*6)*3)}
   x.fillStyle='#ffe29a';x.font='italic 24px Georgia,serif';x.textAlign='center';x.fillText(cs.n+'  '+'★'.repeat(ST.rate||0)+'☆'.repeat(3-(ST.rate||0)),cw/2,ch-14)}}
 function stFinish(){ST.done=1;ST.dt=0;const cs=ST.c,bad=ST.missTot+ST.hints,rate=bad==0?3:bad<=2?2:1,old=+SV.stars[cs.id]||0,nw=!old;ST.rate=rate;
- const pts=Math.round((nw?40:8)*[0,.5,.75,1][rate])+(nw&&rate==3?10:0)+(!nw&&rate>old?15:0);SV.stars[cs.id]=Math.max(old,rate);SV.pts+=pts;G.tally+=pts;save();arp();if(cs.id!='maus'&&cs.id!='fisch')meow(1.15);stAlb();
+ const pts=Math.round((nw?40:8)*[0,.5,.75,1][rate])+(nw&&rate==3?10:0)+(!nw&&rate>old?15:0);SV.stars[cs.id]=Math.max(old,rate);if(nw&&starN()==3)setTimeout(()=>ban('🌙 Mondseide-Band erhalten!','Aus dem Licht von drei Sternenkatzen ist ein Band gewoben. Damit kann der Tierladen das Häubchen für Rüdiger nähen.'),2600);SV.pts+=pts;G.tally+=pts;save();arp();if(cs.id!='maus'&&cs.id!='fisch')meow(1.15);stAlb();
  $('#sttx').textContent=(nw?'Neu im Album: ':'Gefunden: ')+cs.n+'! '+'★'.repeat(rate)+'☆'.repeat(3-rate)+'  +'+pts+' Pfotenpunkte.'+(nw&&rate==3?' Perfekt, ohne Fehler und Tipp!':rate<3?' Ohne Fehler und Tipps gibt es 3 Sterne.':'')+(nw?' Ab jetzt leuchtet sie nachts über der Gärtnerei.':'')}
 $('#stc').addEventListener('pointerdown',e=>{if(!ST.c)return;const r=e.currentTarget.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,cw=r.width,ch=r.height;
  for(const q of ST.sh){if(Math.hypot(mx-q.x,my-q.y)<28){q.hit=1;SV.pts+=2;G.tally+=2;chime(SC5[7],.22);$('#sttx').textContent='Sternschnuppe gefangen! +2 Pfotenpunkte';return}}
@@ -1586,32 +1597,10 @@ $('#stc').addEventListener('pointerdown',e=>{if(!ST.c)return;const r=e.currentTa
  let dec=null,dd=20;ST.dec.forEach(d=>{const px=cw*.06+d[0]*cw*.88,py=ch*.06+d[1]*ch*.88,q=Math.hypot(mx-px,my-py);if(q<dd){dd=q;dec={x:px,y:py}}});
  if(best&&(!dec||bd<=dd)){ST.lit.add(best.k);if(ST.hintK==best.k)ST.hintT=0;chime(SC5[ST.lit.size%8],.17);if(ST.lit.size>=ST.uniq.length)stFinish();else $('#sttx').textContent='Gefunden! Noch '+(ST.uniq.length-ST.lit.size)+' Sterne.';return}
  if(dec){ST.miss++;ST.missTot++;ST.flash.push({x:dec.x,y:dec.y,t:.8});blip();if(ST.miss>=3){ST.miss=0;ST.lit.clear();chime(SC5[0]*.5,.25);$('#sttx').textContent='Oh nein, die Sterne verblassen … Schau dir die Vorlage nochmal an und versuch es erneut.'}else $('#sttx').textContent='Dieser Stern gehört nicht dazu. Fehler '+ST.miss+' von 3.'}});
-/* ===== Imker, Honig und Leopardentraum ===== */
-const HONEYX=1489+OFF,HONEYY=GY-100,LEOPAL={b:'#e8a83e',s:'#d08e2a',w:'#fbf0d8',e:'#b8f060'};
-const IMK={u:null};
+/* ===== Honig und Leopardentraum ===== */
+const HONEYX=1900+OFF,HONEYY=GY+4,LEOPAL={b:'#e8a83e',s:'#d08e2a',w:'#fbf0d8',e:'#b8f060'};
 function hsl2rgb(h,s,l){h=((h%360)+360)%360/360;const f=n=>{const k=(n+h*12)%12,a=s*Math.min(l,1-l);return l-a*Math.max(-1,Math.min(k-3,9-k,1))};return[f(0)*255,f(8)*255,f(4)*255]}
 function buzz(){if(!AC)return;const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain(),l=AC.createOscillator(),lg=AC.createGain();o.type='sawtooth';o.frequency.value=rnd(180,230);l.frequency.value=18;lg.gain.value=20;l.connect(lg);lg.connect(o.frequency);const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=700;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.012,t+.2);g.gain.linearRampToValueAtTime(0,t+1.2);o.connect(f);f.connect(g);g.connect(mst);o.start(t);l.start(t);o.stop(t+1.3);l.stop(t+1.3)}
-function imkLogic(dt){let u=IMK.u;
- if(!u){if(SV.honey||G.slept||G.vis||REV.on||G.p<.1||G.p>.55||G.imkDay==SV.day)return;if(G.imkT==null)G.imkT=rnd(25,70);if((G.imkT-=dt)>0)return;G.imkDay=SV.day;G.imkT=null;if(Math.random()>.65)return;IMK.u=u={x:GATE-60,dir:1,st:'in',t:0,wk:0,txt:'',sayT:0};buzz();return}
- u.t+=dt;if(u.sayT>0)u.sayT-=dt;else u.txt='';
- if(u.st=='in'){const tx=HONEYX-46,d=tx-u.x;if(Math.abs(d)<3){u.st='put';u.t=0;u.dir=1}else{u.dir=Math.sign(d);u.x+=u.dir*Math.min(Math.abs(d),70*dt);u.wk+=dt*8}}
- else if(u.st=='put'){if(u.t>1.2&&!u.put){u.put=1;SV.honey=1;save();chime(SC5[5],.2);u.txt='Frischer Bergblütenhonig für euch!';u.sayT=3.5;if(!G.honTip){G.honTip=1;show('Der Imker war da','Er hat ein Glas Honig ins Lager gestellt. Ein ganz besonderer Honig … Tippe darauf, wenn du dich traust.')}}if(u.t>3.4){u.st='out'}}
- else{u.dir=-1;u.x-=70*dt;u.wk+=dt*8;if(u.x<GATE-260)IMK.u=null}
- if(Math.random()<dt*.5)buzz()}
-function drawImker(){const u=IMK.u;if(!u||G.loc!='home')return;const s=1.32,walk=u.st=='put'?0:Math.sin(u.wk),sw=walk*14,SUIT='#f4f2ea',SD='#d8d4c8',SK='#e8b896';
- c.save();c.translate(u.x,GY);c.scale(u.dir*s,s);c.lineCap='round';c.lineJoin='round';E(0,2,22,5,'rgba(0,0,0,.2)');
- for(const [o,q] of [[-3,sw],[4,-sw]]){LN(o,-58,o+q,-8,11,SUIT);RR(o+q-7,-9,18,9,3,'#3a3a40')}
- RR(-14,-112,29,58,10,SUIT);LN(0,-108,0,-60,1.5,SD);RR(-14,-66,29,5,2,SD);
- E(3,-122,13,14,SK);
- c.fillStyle='rgba(40,40,40,.35)';c.beginPath();c.moveTo(-16,-126);c.lineTo(22,-126);c.lineTo(20,-100);c.lineTo(-14,-100);c.closePath();c.fill();c.strokeStyle='rgba(30,30,30,.35)';c.lineWidth=.6;for(let i=-14;i<20;i+=3){c.beginPath();c.moveTo(i,-126);c.lineTo(i+1,-100);c.stroke()}
- E(3,-128,24,5,'#e8e2c8');E(3,-136,13,9,'#e8e2c8');RR(-10,-133,26,3,1,'#c8a050');
- E(9,-118,1.6,1.8,'#222');
- const up=u.st=='put'&&u.t<1.4,hd=up?{x:24,y:-98}:{x:8+sw*.5,y:-66};const h=arm({x:2,y:-104},hd,26,SUIT,'#e8c840',6);
- if(!u.put){c.save();c.translate(h.x+4,h.y-4);RR(-6,-10,12,14,3,'rgba(240,170,40,.9)');RR(-7,-13,14,4,2,'#d84a4a');c.restore()}
- LN(-10,-80,-22,-62,2,'#8a8a90');RR(-28,-66,12,18,3,'#9a9aa2');for(let i=0;i<3;i++){const t=(T*.6+i/3)%1;E(-22-t*8,-70-t*30,3+t*6,3+t*5,'rgba(230,230,235,'+(.5*(1-t))+')')}
- c.restore();
- for(let i=0;i<7;i++){const a=T*(2+i*.3)+i*1.7,bx=u.x+Math.cos(a)*(30+i*6),by=GY-120+Math.sin(a*1.3)*30;E(bx,by,2.6,2,'#f2c030');LN(bx-1,by,bx+1,by,1.2,'#222');E(bx,by-2,1.8,1.2,'rgba(255,255,255,.7)')}
- if(u.txt)bubble(u.x,GY-200,u.txt)}
 function drawHoney(){if(!SV.honey||G.loc!='home')return;const x=HONEYX,y=HONEYY,pu=.5+.5*Math.sin(T*2.2);
  c.save();c.globalCompositeOperation='lighter';const g=c.createRadialGradient(x,y-12,2,x,y-12,40);g.addColorStop(0,'rgba(255,190,60,'+(.35+.2*pu)+')');g.addColorStop(1,'rgba(255,190,60,0)');c.fillStyle=g;c.beginPath();c.arc(x,y-12,40,0,TAU);c.fill();c.restore();
  RR(x-11,y-24,22,24,5,'rgba(235,160,30,.92)');RR(x-9,y-20,6,14,3,'rgba(255,230,150,.6)');RR(x-8,y-15,16,8,1,'#fff6e0');c.font='bold 5px Georgia';c.fillStyle='#7a4a10';c.textAlign='center';c.textBaseline='middle';c.fillText('HONIG',x,y-11);
@@ -1662,8 +1651,8 @@ function quizRender(){const Q=J.quiz,q=QUIZ[Q.qs[Q.i]];$('#qn').textContent='Fra
   if(o.ok){Q.ok++;b.classList.add('ok');chime(SC5[6],.25);$('#qr').textContent='Richtig. Obsidian nickt langsam.'}else{b.classList.add('no');box.querySelectorAll('button').forEach(x=>{if(q.a[0]==x.textContent)x.classList.add('ok')});hiss();vib(150);J.shake=.6;$('#qr').textContent='Falsch! Obsidians Augen glühen auf.'}
   setTimeout(()=>{Q.wait=0;Q.i++;if(Q.i<3)quizRender();else quizEnd()},1700)};box.append(b)})}
 function quizEnd(){const Q=J.quiz,win=Q.ok==3;$('#quiz').classList.remove('on');J.quiz=null;const P=J.pan;
- if(win){SV.st.panther=(SV.st.panther||0)+1;bonus(150,Wm.x,GY-200,'Obsidians Respekt! +150','#ffe29a');arp();P.txt='Du kennst die Katzen gut. Geh in Frieden, kleiner Leopard.';P.sayT=4;show('Gewonnen!','Obsidian verneigt sich vor dir und verschwindet in der Dunkelheit. +150 Pfotenpunkte.',1)}
- else{const lost=Math.floor(SV.pts);SV.pts=0;save();roarSnd();J.shake=1.2;vib([200,80,200]);J.redT=T;P.txt='Du weisst zu wenig über Katzen! Deine Pfotenpunkte gehören jetzt mir.';P.sayT=4;FT.push({x:Wm.x,y:GY-200,t:'−'+lost+' 🐾',l:0,col:'#ff7a7a',big:1});show('Verloren …',Q.ok+' von 3 richtig. Obsidian hat dir alle '+lost+' Pfotenpunkte genommen. Gekauftes bleibt dir.',1)}
+ if(win){const first=!SV.st.panther;SV.st.panther=(SV.st.panther||0)+1;const pts=first?400:250;bonus(pts,Wm.x,GY-200,'Obsidians Respekt! +'+pts,'#ffe29a');arp();setTimeout(arp,500);J.gold=T;vib([60,40,60,40,120]);for(let i=0;i<90;i++)PA.push({k:'s',x:Wm.x+rnd(-500,500),y:rnd(GY-420,GY-260),vx:rnd(-30,30),vy:rnd(60,180),l:0,m:rnd(1.8,3.2),col:'hsl('+rnd(38,52)+',100%,'+rnd(60,80)+'%)'});P.txt='Du kennst die Katzen gut. Ich ernenne dich zur Hüterin des Dschungels!';P.sayT=4.5;show(first?'🏆 Hüterin des Dschungels!':'Gewonnen!','Obsidian verneigt sich vor dir. Goldener Regen fällt durch den Dschungel. +'+pts+' Pfotenpunkte'+(first?', dazu der grosse Erfolg mit weiteren 500 Punkten!':'.'),1)}
+ else{const lost=Math.floor(SV.pts/2);SV.pts-=lost;save();roarSnd();J.shake=1.2;vib([200,80,200]);J.redT=T;P.txt='Du weisst zu wenig über Katzen! Die Hälfte deiner Pfotenpunkte gehört jetzt mir.';P.sayT=4;FT.push({x:Wm.x,y:GY-200,t:'−'+lost+' 🐾',l:0,col:'#ff7a7a',big:1});show('Verloren …',Q.ok+' von 3 richtig. Obsidian hat dir die Hälfte genommen: '+lost+' Pfotenpunkte. Gekauftes bleibt dir.',1)}
  save();P.st='leave';P.t=0;P.dir=P.x>Wm.x?-1:1}
 function drawPanther(){const P=J.pan;if(!P)return;const st=P.st=='in'?'stalk':P.st=='leave'?'run':'sit',pf=P.st=='leave'?-P.dir:P.dir;
  c.save();c.shadowColor='rgba(160,120,255,.8)';c.shadowBlur=22;drawRudi({x:P.x,y:GY+8,f:pf,st,ph:st=='run'?T*1.3:T*.7,leo:1,sz:2.7,pal:{b:'#1c1822',s:'#141018',w:'#2c2634',e:'#ffd040'},eyeMode:'wide',lookAt:{x:Wm.x,y:GY-40}});c.restore();
@@ -1671,15 +1660,20 @@ function drawPanther(){const P=J.pan;if(!P)return;const st=P.st=='in'?'stalk':P.
 /* --- Dschungel --- */
 const JW=2600,JTREES=[{x:520,by:GY-175},{x:1330,by:GY-205},{x:2020,by:GY-165}],RIV0=830,RIV1=1110;
 const J={};
-function enterJungle(){SV.honey=0;SV.st.jungle=(SV.st.jungle||0)+1;save();Object.assign(J,{pan:null,panDone:0,quiz:null,dark:0,redT:-9,time:120,cnt:0,py:0,pounce:null,leap:null,perch:null,drop:null,drinkT:0,scrT:0,roarT:0,roarCd:0,shake:0,prey:[],birds:[],marks:[],eyes:[],calm:0,drumT:0,beat:0});
- for(let i=0;i<7;i++)J.prey.push(newPrey());for(let i=0;i<14;i++)J.eyes.push({x:rnd(100,JW-100),y:rnd(GY-120,GY-30),ph:rnd(0,20)});
- travel('jungle');Wm.x=300;Wm.dir=1;$('#jbar').classList.add('on');setTimeout(()=>show('Du bist ein Leopard!','Tippe auf den Boden zum Schleichen, auf leuchtende Falter zum Jagen, auf Äste zum Hochspringen, auf Stämme zum Kratzen und auf den Fluss zum Trinken. Und brüll ruhig mal!'),1800)}
-function exitJungle(){cv.style.filter='';$('#jbar').classList.remove('on');travel('home');Wm.x=HONEYX-46;Wm.dir=1;const n=J.cnt;ban('Du erwachst im Lager …','Was für ein Traum! '+(n?n+' Falter gejagt.':'Der Dschungel ruft dich bestimmt wieder.'))}
+const JCRE=[{id:'tukan',n:'Tukan',e:'🦜',d:'Riesiger bunter Schnabel.'},{id:'frosch',n:'Pfeilgiftfrosch',e:'🐸',d:'Klein, leuchtend und lieber nicht anfassen.'},{id:'faultier',n:'Faultier',e:'🦥',d:'Hängt gemütlich kopfüber.'},{id:'gecko',n:'Gecko',e:'🦎',d:'Klebt an jedem Blatt.'},{id:'kolibri',n:'Kolibri',e:'🐦',d:'Flattert 50-mal pro Sekunde.'},{id:'affe',n:'Kapuzineraffe',e:'🐒',d:'Frech und neugierig.'},{id:'schlange',n:'Baumschlange',e:'🐍',d:'Schläft eingerollt im Farn.'},{id:'ozelot',n:'Ozelot',e:'🐈',d:'Ein kleiner Verwandter von dir!'}];
+SV.jfound=SV.jfound||{};
+function enterJungle(){SV.honey=0;SV.st.jungle=(SV.st.jungle||0)+1;save();Object.assign(J,{pan:null,panDone:0,quiz:null,dark:0,redT:-9,time:120,cnt:0,py:0,pounce:null,leap:null,perch:null,drop:null,drinkT:0,scrT:0,roarT:0,roarCd:0,shake:0,prey:[],birds:[],marks:[],eyes:[],calm:0,drumT:0,beat:0,combo:0,lastC:-9,rush:0,mky:null,mkyT:12,mango:null,pops:[],disc:0});
+ for(let i=0;i<7;i++)J.prey.push(newPrey());for(let i=0;i<14;i++)J.eyes.push({x:rnd(100,JW-100),y:rnd(GY-120,GY-30),ph:rnd(0,20),cre:JCRE[i%JCRE.length].id,cd:0});J.eyes.sort(()=>Math.random()-.5);
+ travel('jungle');Wm.x=300;Wm.dir=1;$('#jbar').classList.add('on');setTimeout(()=>show('Du bist ein Leopard!','Jage leuchtende Falter (schnell hintereinander gibt Combo!), tippe auf glühende Augen im Farn, um Tiere zu entdecken, und fang die Mangos, die die Affen werfen. Und brüll ruhig mal!'),1800)}
+function exitJungle(){cv.style.filter='';$('#jbar').classList.remove('on');travel('home');Wm.x=HONEYX-46;Wm.dir=1;const n=J.cnt,dn=J.disc;ban('Du erwachst im Lager …','Was für ein Traum! '+(n?n+' Falter gejagt. ':'')+(dn?dn+' Tiere entdeckt. ':'')+(n||dn?'':'Der Dschungel ruft dich bestimmt wieder.'))}
 function newPrey(){return{x:rnd(200,JW-200),y:rnd(GY-160,GY-40),vx:rnd(-40,40),vy:0,h:rnd(0,360),ph:rnd(0,6),tx:null,ty:null,tT:0,flee:0}}
-function pickJungle(x,y){for(const p of J.prey)if(Math.hypot(x-p.x,y-p.y)<48)return{t:'jhunt',p};
+function pickJungle(x,y){if(J.mango&&!J.mango.land&&Math.hypot(x-J.mango.x,y-J.mango.y)<60)return{t:'jmango'};for(const p of J.prey)if(Math.hypot(x-p.x,y-p.y)<48)return{t:'jhunt',p};
+ for(const e of J.eyes)if(e.cd<=T&&Math.sin(T*.9+e.ph)>.2&&Math.abs(x-e.x)<34&&Math.abs(y-e.y)<26)return{t:'jeye',e};
  for(const tr of JTREES){if(Math.abs(x-(tr.x+80))<90&&y>tr.by-70&&y<tr.by+30)return{t:'jbranch',tr};if(Math.abs(x-tr.x)<34&&y>tr.by+20&&y<GY+10)return{t:'jscratch',tr}}
  if(x>RIV0&&x<RIV1&&y>GY-10)return{t:'jdrink',x};return{t:'walk',x,y}}
 function jInt(I,dt,stand){
+ if(I.t=='jmango'){const m=J.mango;INT=null;if(!m||m.land||J.pounce)return;const tx=m.x+m.vx*.45,ty=m.y+m.vy*.45+.5*420*.2;J.pounce={sx:Wm.x,tx:cl(tx,60,JW-60),ty:Math.min(ty,GY-40),u:0,p:m,mango:1};Wm.dir=Math.sign(tx-Wm.x)||1;return}
+ if(I.t=='jeye'){const e=I.e;if(e.cd>T){INT=null;return}if(!stand(e.x+(Wm.x<e.x?-80:80)))return;Wm.dir=e.x>Wm.x?1:-1;INT=null;jReveal(e);return}
  if(I.t=='jhunt'){const p=I.p;if(!J.prey.includes(p)){INT=null;return}if(J.pounce)return;const d=p.x-Wm.x;if(Math.abs(d)>170){Wm.tx=p.x-Math.sign(d)*150;return}Wm.tx=null;Wm.dir=Math.sign(d)||1;J.pounce={sx:Wm.x,tx:p.x,ty:p.y,u:0,p};INT=null;return}
  if(I.t=='jbranch'){const tr=I.tr;if(J.perch===tr){INT=null;return}if(!stand(tr.x-40))return;Wm.dir=1;J.leap={sx:Wm.x,sy:0,tx:tr.x+80,ty:GY+8-tr.by,u:0,tr};INT=null;return}
  if(I.t=='jscratch'){const tr=I.tr;if(!stand(tr.x-52))return;Wm.dir=1;if(I.t0==null){I.t0=T;J.scrT=2}if(T-I.t0>2){INT=null;if(J.marks.filter(m=>m.tr===tr).length<4){J.marks.push({tr,y:rnd(GY-110,GY-50)});bonus(2,tr.x,GY-140,'Kratz! +2','#ffd08a')}}return}
@@ -1688,19 +1682,33 @@ function jRoar(){if(G.loc!='jungle'||J.roarCd>T)return;audio();J.roarT=1.8;J.roa
 function jStep(dt){pantherStep(dt);if(!J.quiz&&!(J.pan&&J.pan.st!='leave'))J.time-=dt;$('#jtime').textContent=Math.max(0,Math.ceil(J.time))+' s';$('#jcnt').textContent=J.cnt;
  if(J.time<=0&&!G.trans){startTrans('out');return}
  if((J.drumT-=dt)<=0){J.drumT=J.pan&&J.pan.st!='leave'?.24:.42;J.beat=(J.beat+1)%8;drum(J.beat%4==0)}
- J.roarT=Math.max(0,J.roarT-dt);J.shake=Math.max(0,J.shake-dt*.8);J.drinkT=Math.max(0,J.drinkT-dt);J.scrT=Math.max(0,J.scrT-dt);
+ jExtra(dt);J.roarT=Math.max(0,J.roarT-dt);J.shake=Math.max(0,J.shake-dt*.8);J.drinkT=Math.max(0,J.drinkT-dt);J.scrT=Math.max(0,J.scrT-dt);
  if(J.perch&&(Wm.tx!=null||(INT&&INT.t!='jbranch'))){J.drop={u:0,y:J.py};J.perch=null}
  if(J.drop){J.drop.u=Math.min(1,J.drop.u+dt/.45);J.py=lp(J.drop.y,0,J.drop.u)+Math.sin(J.drop.u*Math.PI)*30;if(J.drop.u>=1){J.drop=null;J.py=0}}
  if(J.leap){const L=J.leap;L.u=Math.min(1,L.u+dt/.7);Wm.x=lp(L.sx,L.tx,L.u);J.py=lp(L.sy,L.ty,L.u)+Math.sin(L.u*Math.PI)*80;if(L.u>=1){J.leap=null;J.perch=L.tr;J.py=L.ty;bonus(2,Wm.x,GY-J.py-110,'Hoch hinaus! +2','#c8ffb0')}}
  if(J.perch&&Wm.sit===0){if((J.calm+=dt)>5){J.calm=0;if((J.calmN=(J.calmN||0)+1)<=6)bonus(1,Wm.x,GY-J.py-100,'Dösen +1','#cfe8ff')}}
  if(J.pounce){const P=J.pounce;P.u=Math.min(1,P.u+dt/.55);Wm.x=lp(P.sx,P.tx,P.u);J.py=Math.sin(P.u*Math.PI)*Math.max(60,GY+8-P.ty+20);Wm.mv=0;
-  if(P.u>=1){J.pounce=null;J.py=0;const p=P.p,dd=J.prey.includes(p)?Math.hypot(p.x-Wm.x,p.y-(GY-60)):999;if(dd<110){J.cnt++;J.prey.splice(J.prey.indexOf(p),1);J.prey.push(newPrey());bonus(6,Wm.x,GY-150,'Jagdglück! +6','#ffe29a');vib(30);for(let i=0;i<26;i++){const a=rnd(0,TAU),v=rnd(40,160);PA.push({k:'s',x:p.x,y:p.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:0,m:rnd(.8,1.6),col:'hsl('+((p.h+i*14)%360)+',100%,70%)'})}chime(SC5[Math.floor(rnd(4,8))],.2)}else FT.push({x:Wm.x,y:GY-130,t:'Daneben …',l:0,col:'#fff'})}}
+  if(P.u>=1&&P.mango){J.pounce=null;J.py=0;const m=J.mango;if(m&&!m.land&&Math.hypot(m.x-Wm.x,m.y-(GY-60))<170){J.mango=null;J.rush=T+9;bonus(8,Wm.x,GY-170,'Mango-Rausch! +8','#ffb030');FT.push({x:Wm.x,y:GY-210,t:'9 s doppelte Punkte!',l:0,col:'#fff0a0',big:1});vib(40);arp();for(let i=0;i<30;i++){const a=rnd(0,TAU),v=rnd(60,200);PA.push({k:'s',x:Wm.x,y:GY-90,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:0,m:rnd(.8,1.6),col:'hsl('+rnd(20,60)+',100%,65%)'})}}else FT.push({x:Wm.x,y:GY-130,t:'Daneben …',l:0,col:'#fff'})}
+  else if(P.u>=1){J.pounce=null;J.py=0;const p=P.p,dd=J.prey.includes(p)?Math.hypot(p.x-Wm.x,p.y-(GY-60)):999;if(dd<110){J.cnt++;J.prey.splice(J.prey.indexOf(p),1);J.prey.push(newPrey());J.combo=T-J.lastC<5?J.combo+1:1;J.lastC=T;const mul=Math.min(J.combo,4)*(J.rush>T?2:1),pts=6*mul;bonus(pts,Wm.x,GY-150,(J.combo>1?'Combo x'+Math.min(J.combo,4)+'! ':'Jagdglück! ')+'+'+pts,J.rush>T?'#ffb030':'#ffe29a');vib(30);for(let i=0;i<26;i++){const a=rnd(0,TAU),v=rnd(40,160);PA.push({k:'s',x:p.x,y:p.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:0,m:rnd(.8,1.6),col:'hsl('+((p.h+i*14)%360)+',100%,70%)'})}chime(SC5[Math.floor(rnd(4,8))],.2)}else FT.push({x:Wm.x,y:GY-130,t:'Daneben …',l:0,col:'#fff'})}}
  J.prey.forEach(p=>{p.ph+=dt;p.h+=dt*60;const near=Math.abs(p.x-Wm.x)<130&&!J.pounce;if(near&&Math.random()<dt*.6)p.flee=.8;
   if(p.flee>0){p.flee-=dt;p.vy-=260*dt;p.vx+=Math.sign(p.x-Wm.x||1)*120*dt}else{if((p.tT-=dt)<=0){p.tT=rnd(1.5,3.5);p.tx=cl(p.x+rnd(-250,250),120,JW-120);p.ty=rnd(GY-150,GY-30)}p.vx+=(p.tx-p.x)*.8*dt;p.vy+=(p.ty-p.y)*1.4*dt}
   p.vx*=1-1.2*dt;p.vy*=1-1.4*dt;p.x+=(p.vx+Math.sin(p.ph*3)*20)*dt;p.y+=(p.vy+Math.sin(p.ph*7)*30)*dt;p.x=cl(p.x,60,JW-60);if(p.y<GY-300){p.y=GY-300;p.vy=20;p.flee=0}if(p.y>GY-14)p.y=GY-14});
  J.birds.forEach(b=>{b.ph+=dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.vy-=10*dt});J.birds=J.birds.filter(b=>b.y>-200);
  PA.forEach(q=>{q.l+=dt;q.x+=q.vx*dt;q.y+=q.vy*dt;if(q.k=='d'||q.k=='e')q.vy+=500*dt;else if(q.k=='s'){q.vx*=.97;q.vy*=.97}});PA=PA.filter(q=>q.l<q.m);FT.forEach(f=>f.l+=dt);FT=FT.filter(f=>f.l<2);
  cv.style.filter='hue-rotate('+Math.round(Math.sin(T*.25)*35+(J.roarT>0?J.roarT*60:0))+'deg) saturate('+(1.35+.25*Math.sin(T*.6)).toFixed(2)+')'}
+function jReveal(e){const cr=JCRE.find(c=>c.id==e.cre);e.cd=T+14;const nw=!SV.jfound[cr.id];SV.jfound[cr.id]=1;J.pops.push({x:e.x,y:e.y,t:0,cr});if(nw){J.disc++;bonus(12,e.x,e.y-70,'Neu entdeckt! +12','#c8ffb0');show(cr.e+' '+cr.n,cr.d+' (Neu in deinem Dschungelbuch im Rucksack.)');chime(SC5[6],.25)}else{bonus(2,e.x,e.y-70,cr.n+' +2','#e0ffd0');blip()}save()}
+function jExtra(dt){const busy=J.quiz||(J.pan&&J.pan.st!='leave');
+ J.pops.forEach(p=>p.t+=dt);J.pops=J.pops.filter(p=>p.t<2.8);
+ if(!J.mky&&!busy&&(J.mkyT-=dt)<=0){const vw=W/SC,cand=JTREES.filter(tr=>tr.x>camX+80&&tr.x<camX+vw-80);const tr=cand[0]||JTREES.reduce((a,b)=>Math.abs(b.x-Wm.x)<Math.abs(a.x-Wm.x)?b:a);J.mky={tr,t:0,thrown:0};chatter()}
+ if(J.mky){const M=J.mky;M.t+=dt;if(!M.thrown&&M.t>1.4&&!busy){M.thrown=1;const sx=M.tr.x+20,sy=GY-330,tx=cl(Wm.x+rnd(-260,260),80,JW-80);J.mango={x:sx,y:sy,vx:(tx-sx)/2.6,vy:-140,land:0,t:0};chatter()}if(M.t>3.6){J.mky=null;J.mkyT=rnd(11,16)}}
+ const m=J.mango;if(m){m.t+=dt;if(!m.land){m.vy+=110*dt;m.x+=m.vx*dt;m.y+=m.vy*dt;if(m.y>=GY-8){m.y=GY-8;m.land=T;for(let i=0;i<10;i++)PA.push({k:'d',x:m.x,y:m.y,vx:rnd(-80,80),vy:rnd(-160,-60),l:0,m:.7,col:'#ffb030'})}}else if(T-m.land>1.2)J.mango=null}
+ const dEl=$('#jdisc');if(dEl)dEl.textContent=JCRE.filter(c=>SV.jfound[c.id]).length+'/'+JCRE.length}
+function jExtraDraw(){
+ J.eyes.forEach(e=>{if(e.cd>T||Math.sin(T*.9+e.ph)<=.2)return;if(Math.abs(e.x-Wm.x)<520){c.strokeStyle='rgba(255,240,150,'+(.25+.2*Math.sin(T*4+e.ph))+')';c.lineWidth=1.6;c.beginPath();c.arc(e.x,e.y,22,0,TAU);c.stroke()}});
+ J.pops.forEach(p=>{const u=Math.min(1,p.t/.35),fade=Math.min(1,(2.8-p.t)/.6),sc=(u<1?u*1.25:1.25-.25*Math.min(1,(p.t-.35)/.3));c.save();c.globalAlpha=fade;c.globalCompositeOperation='lighter';const g=c.createRadialGradient(p.x,p.y-30,2,p.x,p.y-30,46);g.addColorStop(0,'rgba(255,255,200,.55)');g.addColorStop(1,'rgba(255,255,200,0)');c.fillStyle=g;c.beginPath();c.arc(p.x,p.y-30,46,0,TAU);c.fill();c.restore();c.save();c.globalAlpha=fade;c.translate(p.x,p.y-30-u*18);c.scale(sc,sc);c.font='44px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText(p.cr.e,0,0);c.restore();if(p.t>.3&&fade>.3){c.save();c.globalAlpha=fade;bubble(p.x,p.y-92,p.cr.n);c.restore()}});
+ if(J.mky){const M=J.mky,u=Math.min(1,M.t/.5)*Math.min(1,(3.6-M.t)/.5),x=M.tr.x+20,y=GY-330+(1-u)*40;c.save();c.globalAlpha=u;c.font='46px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.translate(x,y);c.rotate(Math.sin(T*8)*.12);c.fillText('🐒',0,0);c.restore();if(!M.thrown&&u>.6)bubble(x,y-50,'Uh uh!')}
+ const m=J.mango;if(m){c.save();c.globalCompositeOperation='lighter';const g=c.createRadialGradient(m.x,m.y,2,m.x,m.y,40);g.addColorStop(0,'rgba(255,190,60,.7)');g.addColorStop(1,'rgba(255,140,30,0)');c.fillStyle=g;c.beginPath();c.arc(m.x,m.y,40,0,TAU);c.fill();c.restore();c.save();c.translate(m.x,m.y);c.rotate(m.land?0:m.t*5);c.font='30px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.globalAlpha=m.land?Math.max(0,1-(T-m.land)/1.2):1;c.fillText('🥭',0,0);c.restore();if(!m.land){c.strokeStyle='rgba(255,220,120,'+(.5+.3*Math.sin(T*10))+')';c.lineWidth=2;c.beginPath();c.arc(m.x,m.y,26,0,TAU);c.stroke()}}
+ if(J.rush>T){c.save();c.globalCompositeOperation='lighter';const g=c.createRadialGradient(Wm.x,GY-J.py-60,10,Wm.x,GY-J.py-60,140);g.addColorStop(0,'rgba(255,170,40,'+(.25+.15*Math.sin(T*9))+')');g.addColorStop(1,'rgba(255,120,20,0)');c.fillStyle=g;c.beginPath();c.arc(Wm.x,GY-J.py-60,140,0,TAU);c.fill();c.restore()}}
 function jFern(x,y,s,col){for(let i=-3;i<=3;i++){c.save();c.translate(x,y);c.rotate(i*.32+Math.sin(T*1.2+x)*.06);c.fillStyle=col;c.beginPath();c.ellipse(0,-26*s,5*s,28*s,0,0,TAU);c.fill();c.restore()}}
 function drawJungle(){const ty=H-WH*SC,hb=(T*10)%360;c.setTransform(D,0,0,D,0,0);
  const sg=c.createLinearGradient(0,0,0,ty+HZ*SC);sg.addColorStop(0,rgb(hsl2rgb(hb+250,.6,.12)));sg.addColorStop(.6,rgb(hsl2rgb(hb+300,.7,.3)));sg.addColorStop(1,rgb(hsl2rgb(hb+20,.85,.55)));c.fillStyle=sg;c.fillRect(0,0,W,H);
@@ -1725,7 +1733,7 @@ function drawJungle(){const ty=H-WH*SC,hb=(T*10)%360;c.setTransform(D,0,0,D,0,0)
  for(let i=0;i<10;i++){const x=90+i*260,y=GY+12;E(x,y-8,9,7,'hsla('+((hb+180)%360)+',100%,70%,'+(.6+.3*Math.sin(T*3+i))+')');LN(x,y-2,x,y+6,3,'#eee')}
  J.birds.forEach(b=>{const w=Math.sin(b.ph*16);c.save();c.translate(b.x,b.y);c.scale(Math.sign(b.vx)||1,1);E(0,0,14,6,b.c[0]);c.fillStyle=b.c[2];c.beginPath();c.moveTo(-4,0);c.lineTo(-10,-20*w);c.lineTo(6,-2);c.fill();LN(-12,2,-28,8,4,b.c[1]);E(12,-3,5,5,b.c[0]);c.fillStyle='#222';c.beginPath();c.moveTo(16,-3);c.lineTo(21,0);c.lineTo(16,1);c.fill();c.restore()});
  J.prey.forEach(p=>{const w=Math.abs(Math.sin(p.ph*14));c.save();c.globalCompositeOperation='lighter';const g=c.createRadialGradient(p.x,p.y,0,p.x,p.y,34);g.addColorStop(0,'hsla('+(p.h%360)+',100%,70%,.55)');g.addColorStop(1,'hsla('+(p.h%360)+',100%,60%,0)');c.fillStyle=g;c.beginPath();c.arc(p.x,p.y,34,0,TAU);c.fill();c.restore();c.save();c.translate(p.x,p.y);E(-6,-3,9*w+2,7,'hsl('+(p.h%360)+',100%,65%)',-.5);E(6,-3,9*w+2,7,'hsl('+((p.h+60)%360)+',100%,65%)',.5);E(-4,5,5*w+1,4,'hsl('+((p.h+120)%360)+',100%,60%)',-.7);E(4,5,5*w+1,4,'hsl('+((p.h+180)%360)+',100%,60%)',.7);LN(0,-6,0,7,2,'#2a1a2a');c.restore()});
- drawPanther();
+ jExtraDraw();drawPanther();
  const near=J.prey.reduce((m,p)=>Math.min(m,Math.abs(p.x-Wm.x)),999);let st='sit',eye=null;
  if(J.pounce||J.leap)st='pounce';else if(J.perch)st='curl';else if(J.drinkT>0)st='stalk';else if(J.scrT>0)st='swat';else if(J.roarT>0){st='sit';eye='chatter'}else if(Wm.mv)st='run';else if(near<230)st='stalk';
  const tgt=J.prey.slice().sort((a,b)=>Math.abs(a.x-Wm.x)-Math.abs(b.x-Wm.x))[0];
@@ -1737,10 +1745,11 @@ function drawJungle(){const ty=H-WH*SC,hb=(T*10)%360;c.setTransform(D,0,0,D,0,0)
  {const g=c.createRadialGradient(W/2,H*.55,Math.min(W,H)*.35,W/2,H*.55,Math.max(W,H)*.8);g.addColorStop(0,'rgba(10,0,20,0)');g.addColorStop(1,'rgba(10,0,20,.55)');c.fillStyle=g;c.fillRect(0,0,W,H)}
  if(J.dark>0){c.fillStyle='rgba(8,0,18,'+(.45*J.dark)+')';c.fillRect(0,0,W,H)}if(T-J.redT<1.5){c.fillStyle='rgba(200,0,0,'+(.4*(1-(T-J.redT)/1.5))+')';c.fillRect(0,0,W,H)}
  if(J.pan&&J.dark>0&&J.pan.st!='in'&&J.pan.st!='leave'){setW(H-WH*SC);c.save();c.globalCompositeOperation='lighter';const sc=CS*2.7,pf=J.pan.dir;for(const lx of[0,20]){const ex=J.pan.x+pf*lx*sc,ey=GY+8-60*sc,g=c.createRadialGradient(ex,ey,0,ex,ey,18);g.addColorStop(0,'rgba(255,220,80,'+(.7*J.dark)+')');g.addColorStop(1,'rgba(255,200,60,0)');c.fillStyle=g;c.beginPath();c.arc(ex,ey,18,0,TAU);c.fill()}c.restore();c.setTransform(D,0,0,D,0,0)}
+ if(J.gold&&T-J.gold<2.5){c.fillStyle='rgba(255,210,90,'+(.35*(1-(T-J.gold)/2.5))+')';c.fillRect(0,0,W,H)}
  if(J.time<10){c.fillStyle='rgba(255,255,255,'+((10-J.time)/10*.35*(.5+.5*Math.sin(T*4)))+')';c.fillRect(0,0,W,H)}}
 /* ===== Rüdigers Alltag und Fotoalbum ===== */
 const EXC=['window','sun','pen','roof','attic'],UP=['roof','attic'];
-const PHOTOS=[{id:'roof',n:'Über den Dächern',h:'Manchmal hüpft Rüdiger aufs Dach oder schaut aus dem Estrich.'},{id:'lap',n:'Schosskatze',h:'Ist er oben, setz dich aufs Sofa. Dann kommt er kuscheln.'},{id:'groom',n:'Putzstunde',h:'Manchmal putzt sich Rüdiger ausgiebig.'},{id:'knead',n:'Milchtritt',h:'Er knetet sein Schaffell, bevor er döst.'},{id:'stretch',n:'Grosses Strecken',h:'Bevor er losgeht, streckt er sich lang.'},{id:'window',n:'Vogelbeobachter',h:'Am Fenster keckert er die Vögel an.'},{id:'sun',n:'Sonnenanbeter',h:'Tagsüber döst er gern im Sonnenfleck.'},{id:'belly',n:'Bauch nach oben',h:'Ganz entspannt zeigt er seinen Bauch.'},{id:'pen',n:'Kleiner Übeltäter',h:'Auf dem Schreibtisch ist nichts sicher.'},{id:'pounce',n:'Der grosse Sprung',h:'Beim Spielen springt er auf die Beute.'},{id:'bonnet',n:'Zimmermädchen',h:'Mit Häubchen auf dem Kopf.'},{id:'mdance',n:'Müngelis Tanz',h:'Wenn Müngeli genug Milch getrunken hat.'}];
+const PHOTOS=[{id:'mgift',n:'Müngelis Geschenk',h:'Mag Müngeli dich sehr, legt sie dir morgens etwas an die Leiter.'},{id:'roof',n:'Über den Dächern',h:'Manchmal hüpft Rüdiger aufs Dach oder schaut aus dem Estrich.'},{id:'lap',n:'Schosskatze',h:'Ist er oben, setz dich aufs Sofa. Dann kommt er kuscheln.'},{id:'groom',n:'Putzstunde',h:'Manchmal putzt sich Rüdiger ausgiebig.'},{id:'knead',n:'Milchtritt',h:'Er knetet sein Schaffell, bevor er döst.'},{id:'stretch',n:'Grosses Strecken',h:'Bevor er losgeht, streckt er sich lang.'},{id:'window',n:'Vogelbeobachter',h:'Am Fenster keckert er die Vögel an.'},{id:'sun',n:'Sonnenanbeter',h:'Tagsüber döst er gern im Sonnenfleck.'},{id:'belly',n:'Bauch nach oben',h:'Ganz entspannt zeigt er seinen Bauch.'},{id:'pen',n:'Kleiner Übeltäter',h:'Auf dem Schreibtisch ist nichts sicher.'},{id:'pounce',n:'Der grosse Sprung',h:'Beim Spielen springt er auf die Beute.'},{id:'bonnet',n:'Zimmermädchen',h:'Mit Häubchen auf dem Kopf.'},{id:'mdance',n:'Müngelis Tanz',h:'Wenn Müngeli genug Milch getrunken hat.'}];
 SV.photos=SV.photos||{};
 function chatter(){if(!AC)return;for(let i=0;i<5;i++){const t=AC.currentTime+i*.09,o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.value=rnd(900,1200);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.025,t+.01);g.gain.exponentialRampToValueAtTime(.0005,t+.06);o.connect(g);g.connect(mst);o.start(t);o.stop(t+.07)}}
 function shutter(){if(!AC)return;[0,.07].forEach(d=>{const t=AC.currentTime+d,s=AC.createBufferSource();s.buffer=NB;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=1600;const g=AC.createGain();g.gain.setValueAtTime(.06,t);g.gain.exponentialRampToValueAtTime(.001,t+.05);s.connect(f);f.connect(g);g.connect(mst);s.start(t,rnd(0,1));s.stop(t+.06)})}
@@ -1757,7 +1766,7 @@ function rBehStep(k,dt,nearM){if(RO.on||G.trip||G.glow){if(k.beh)k.beh=null;retu
  k.ec=0;k.kn=0;
  if(k.ret&&T-k.ret.t0>.45)k.ret=null;
  if(rBusy(k,nearM)||k.ret)return;if(T<(k.behNext||(k.behNext=T+rnd(8,14))))return;
- const day=nightNess()<.3&&G.p>.08&&G.p<.62,stay=(bfNow()&&bfNow().st=='wait')||k.need>55,opts=[['groom',25],['knead',15]];if(!stay){opts.push(['window',20]);if(day)opts.push(['sun',22]);if(T>(G.penCd||0)&&!G.pen)opts.push(['pen',12]);if(!REV.on&&G.p<.5)opts.push(['roof',day?14:6],['attic',12])}
+ const day=nightNess()<.3&&G.p>.08&&G.p<.62,stay=(bfNow()&&bfNow().st=='wait')||k.need>55,opts=[['groom',25],['knead',15]];if(!stay){opts.push(['window',20]);if(day)opts.push(['sun',22]);if(T>(G.penCd||0)&&!G.pen)opts.push(['pen',12]);if(!REV.on&&G.p<.5&&rLvl()>=2)opts.push(['roof',day?14:6],['attic',12])}
  const tot=opts.reduce((a,o)=>a+o[1],0);let r=Math.random()*tot,type='groom';for(const o of opts){r-=o[1];if(r<=0){type=o[0];break}}
  const nb={type,t:0};if(type=='window'){nb.tx=622;nb.ty=GY-126;nb.stay=10}else if(type=='sun'){nb.tx=572;nb.ty=GY+16;nb.stay=13;nb.belly=Math.random()<.4}else if(type=='pen'){nb.tx=384;nb.ty=GY-82;nb.stay=4.5;G.penCd=T+120}else if(type=='roof'){nb.tx=704;nb.ty=136;nb.stay=20}else if(type=='attic'){nb.tx=537;nb.ty=149;nb.stay=17}if(UP.includes(type)&&!G.upTip){G.upTip=1;setTimeout(()=>show(type=='roof'?'Rüdiger ist aufs Dach gehüpft':'Rüdiger schaut aus dem Estrich','Setz dich doch aufs Sofa. Vielleicht kommt er dann kuscheln.'),1800)}
  k.beh=nb}
@@ -1785,19 +1794,27 @@ function photoMotifs(){const k=cats[0],b=k.beh,L=[],rp=rDrawPos(k),add=(id,x,y)=
  if(b){const st=b.t-1.8;if(b.type=='groom')add('groom',k.x+20,k.y-20);if(b.type=='knead')add('knead',k.x+20,k.y-20);
   if(EXC.includes(b.type)){if(b.t<1.2)add('stretch',k.x+30,k.y-20);else if(st>0&&st<b.stay){if(b.type=='window')add('window',rp.x,rp.y-40);if(b.type=='sun')add(b.belly&&st>b.stay/2?'belly':'sun',rp.x,rp.y-20);if(b.type=='pen')add('pen',rp.x-20,rp.y-40);if(b.type=='roof')add('roof',rp.x,rp.y-40);if(b.type=='attic')add('roof',540,118)}}}
  if(G.lap&&G.lap.st=='lap')add('lap',Wm.x+20,GY-70);
+ if(SV.mgift)add('mgift',MGIFTX,GY-30);
  if(k.rollT>T)add('belly',k.x,k.y-20);
  if(INT&&INT.t=='play'&&INT.on&&INT.cs=='pounce')add('pounce',INT.k.x,INT.k.y-40);
- if(REV.on&&REV.st=='carry')add('bonnet',REV.o.x,REV.o.y-30);else if(!k.sleep&&(SV.rudi.wear.cap||k.bonT>T))add('bonnet',rp.x+20,rp.y-40);
+ if(!k.sleep&&(SV.rudi.wear.cap||k.bonT>T))add('bonnet',rp.x+20,rp.y-40);
  if(cats[1].danceT>T)add('mdance',cats[1].x,cats[1].y-50);
  const vw=W/SC;return L.filter(m=>m.x>camX-10&&m.x<camX+vw+10)}
 function snapThumb(x,y){try{const ty=H-WH*SC,w=Math.min(250*SC,W),h=Math.min(188*SC,H),sx=cl((x-camX)*SC,w/2,W-w/2),sy=cl(ty+y*SC,h/2,H-h/2),o=document.createElement('canvas');o.width=200;o.height=150;const g=o.getContext('2d');g.fillStyle='#222';g.fillRect(0,0,200,150);g.drawImage(cv,(sx-w/2)*D,(sy-h/2)*D,w*D,h*D,0,0,200,150);return o.toDataURL('image/jpeg',.72)}catch(e){return null}}
 let polT;function takePhoto(){if(G.loc!='home'){show('Hier gibt es nichts für das Album','Die besonderen Momente warten in der Gärtnerei.');return}if(G.vis)return;
- shutter();vib(40);G.flashT=T;const M=photoMotifs(),m=M.find(q=>!SV.photos[q.id])||M[0];
+ shutter();vib(40);G.flashT=T;const M=photoMotifs(),m=(!SV.won&&M.find(q=>q.id=='bonnet'))||M.find(q=>!SV.photos[q.id])||M[0];
  if(!m){show('Klick!','Ein hübsches Foto, aber nichts Besonderes. Halte Ausschau nach besonderen Momenten. Ein 📷 über Rüdiger zeigt, wann es sich lohnt.');return}
  G.noHint=1;const fl=G.flashT;G.flashT=-9;draw();G.noHint=0;G.flashT=fl;const img=snapThumb(m.x,m.y),nw=!SV.photos[m.id],d=PHOTOS.find(p=>p.id==m.id);SV.photos[m.id]={img,d:SV.day};
  if(nw){bonus(30,m.x,m.y-80,'📷 Neues Foto! +30','#ffe29a');SV.rudi.h+=1;arp()}save();
  const pe=$('#pol');pe.querySelector('img').src=img||'';pe.querySelector('b').textContent=d.n+(nw?' ✨':'');pe.classList.add('on');clearTimeout(polT);polT=setTimeout(()=>pe.classList.remove('on'),3200);
+ if(m.id=='bonnet'&&!SV.won){SV.won=SV.day;save();setTimeout(()=>finStart(img),1400);return}
  show(nw?'Neu im Fotoalbum: '+d.n:'Foto ersetzt: '+d.n,nw?'+30 Pfotenpunkte und ein Herz von Rüdiger. Das Album findest du im Rucksack.':'Das neue Bild ersetzt das alte im Album.')}
+function winOpen(img){HOLD=1;arp();setTimeout(arp,450);vib([80,60,80,60,200]);$('#pol').classList.remove('on');$('#cap').classList.remove('on');
+ $('#winimg').innerHTML=img?'<img alt="Rüdiger mit Häubchen" src="'+img+'">':'';$('#wintx').textContent='Rüdiger trägt sein Zimmermädchen-Häubchen, und du hast das Foto für das Sammelalbum! Damit hast du Samtpfoten durchgespielt.';
+ const st=$('#winst');st.textContent='';const ad=(t)=>{const e=document.createElement('span');e.textContent=t;st.append(e)};ad('📅 Tag '+SV.day);ad('🐾 '+Math.floor(SV.pts)+' Punkte');ad('📷 '+PHOTOS.filter(p=>SV.photos[p.id]).length+'/'+PHOTOS.length+' Fotos');ad('🏆 '+ACH.filter(a=>SV.ach[a.id]).length+'/'+ACH.length+' Erfolge');ad('💗 '+SV.rudi.h+' Herzen');
+ $('#win').classList.add('on')}
+$('#winnew').onclick=()=>{audio();$('#win').classList.remove('on');HOLD=0;resetGame();ban('Ein neues Abenteuer','Alles beginnt von vorn: null Punkte, Rüdiger und Müngeli warten auf dich.')};
+$('#wingo').onclick=()=>{audio();$('#win').classList.remove('on');HOLD=0;show('Weiter geht’s','Du kannst einfach weiterspielen. Über die Hilfe (?) kannst du jederzeit neu beginnen.')};
 function photoHint(){if(G.vis||G.loc!='home'||G.noHint)return;const m=photoMotifs().find(q=>!SV.photos[q.id]);if(!m)return;const y=m.y-95+Math.sin(T*4)*3;c.save();c.globalAlpha=.6+.4*Math.abs(Math.sin(T*3));E(m.x,y,15,15,'rgba(255,252,244,.95)');c.font='16px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText('📷',m.x,y+1);c.restore()}
 function albBag(l){const h=document.createElement('h3');h.className='sh3';h.textContent='📷 Fotoalbum ('+PHOTOS.filter(p=>SV.photos[p.id]).length+' / '+PHOTOS.length+')';l.append(h);
  const p=document.createElement('p');p.textContent='Tippe unten auf 📷, wenn Rüdiger etwas Besonderes macht. Jedes neue Motiv bringt 30 Pfotenpunkte und ein Herz.';l.append(p);
@@ -1812,26 +1829,63 @@ function roStep(dt){if(!RO.on||G.loc!='home')return;const k=cats[0];
  if(RO.mode=='home'){RO.eye=null;RO.look=null;if(roMove(k.x+90,170,dt,'run'))RO.hop={a:{x:RO.x,y:RO.y},b:{x:k.x,y:k.y+4},t:0,d:.5,h:40,cb:()=>{RO.on=0;RO.mode='';k.behNext=T+rnd(8,14)}}}}
 function drawRO(){drawRudi({k:cats[0],x:RO.x,y:RO.y,f:RO.f,st:RO.st,ph:T,u:RO.u||0,eyeMode:RO.eye,lookAt:RO.look||{x:RO.x+RO.f*100,y:RO.y-40}})}
 
+/* ===== Ziel, Müngeli-Freundschaft, Besuch vom See, Finale ===== */
+const MGIFTX=LAD+46;
+function goalHud(){const done=SV.rudi.capOwn,el=$('#gl');if(!el)return;el.textContent=done?'✓':Math.min(5000,Math.floor(SV.pts));$('#glx').textContent=done?(SV.won?' gewonnen':' Foto machen!'):'/5000';
+ if(!done&&!SV.half&&SV.pts>=2500){SV.half=1;save();ban('🎀 Halbzeit!','2500 von 5000 Pfotenpunkten für Rüdigers Häubchen sind geschafft.')}
+ if(!done&&!SV.full&&SV.pts>=5000){SV.full=1;save();ban('🎀 Genug gespart!',bandOk()?'Im Tierladen wartet das Häubchen auf dich.':'Jetzt fehlt nur noch das Mondseide-Band: Finde 3 Sternenkatzen auf der Bergalp.')}}
+function mungMorning(){if(mLvl()>=2&&!SV.mgift&&Math.random()<.6){SV.mgift=1;save();setTimeout(()=>show('Ein Geschenk von Müngeli','Unten an der Leiter im Lager liegt etwas für dich. Lauf einfach daran vorbei.'),9000)}}
+function mungStep(dt){if(G.loc!='home'||G.vis)return;const m=cats[1];
+ if(SV.mgift&&Wm.z<.5&&Math.abs(Wm.x-MGIFTX)<40){SV.mgift=0;bonus(25,MGIFTX,GY-80,'Müngelis Geschenk! +25','#ffd0e8');mHeart(1,MGIFTX,GY-120);arp()}
+ if(mLvl()>=1&&Wm.z>=LH-.5&&!G.trip&&!MRK.on&&!m.sleep&&T>(G.mHelloCd||0)){G.mHelloCd=T+90;m.danceT=T+4;m.df=m.f;bonus(3,m.x,m.y-150,'Hallo! +3','#ffd0e8')}}
+function drawMGift(){if(!SV.mgift||G.loc!='home')return;const x=MGIFTX,y=GY+2,b=Math.sin(T*3)*2;c.save();c.globalCompositeOperation='lighter';const g=c.createRadialGradient(x,y-12,2,x,y-12,30);g.addColorStop(0,'rgba(255,190,230,.45)');g.addColorStop(1,'rgba(255,190,230,0)');c.fillStyle=g;c.beginPath();c.arc(x,y-12,30,0,TAU);c.fill();c.restore();c.font='24px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText('🎁',x,y-14+b)}
+// scheue Katze vom See besucht den Garten
+const VIS={u:null};
+function visLogic(dt){if(G.loc!='home'||G.vis)return;const u=VIS.u;
+ if(!u){if((SV.shy||0)<3||G.visDay==SV.day||G.p<.3||G.p>.47||G.trip||G.ask||RO.on||man||REV.on||G.nerv||(INT&&INT.t=='bench'))return;if(G.visT==null)G.visT=rnd(4,12);if((G.visT-=dt)>0)return;G.visT=null;G.visDay=SV.day;if(Math.random()<.4)return;VIS.u={x:GATE+40,st:'in',t:0,pet:0};show('Besuch vom See!','Die scheue Katze vom See ist durchs Gartentor gekommen und setzt sich auf die Bank. Tippe auf sie.');return}
+ u.t+=dt;if(u.st=='in'){u.x-=70*dt;if(u.x<=BENCH+20){u.x=BENCH+20;u.st='sit';u.t=0}}else if(u.st=='sit'){if(u.t>22)u.st='out'}else if(u.st=='pet'){u.pt+=dt;if((u.hT=(u.hT||0)-dt)<=0){u.hT=.5;PA.push({k:'h',x:u.x+rnd(-8,12),y:GY-110,vx:rnd(-8,8),vy:-30,l:0,m:1.5})}if(u.pt>4){u.st='out';u.t=0;bonus(12,u.x,GY-150,'Besuch! +12','#ffd0e8');SV.shy=(SV.shy||0)+1;save()}}else{u.x+=90*dt;if(u.x>GATE+80)VIS.u=null}}
+function visInt(I,dt,stand){const u=VIS.u;if(!u||u.st!='sit'){INT=null;return}if(!stand(u.x-70))return;Wm.dir=1;u.st='pet';u.pt=0;INT=null}
+function drawVisCat(){const u=VIS.u;if(!u||G.loc!='home')return;const sit=u.st=='sit'||u.st=='pet';drawRudi({x:u.x,y:sit?GY-56:GY+8,f:u.st=='out'?1:-1,st:sit?'sit':'run',ph:T,pal:SHYPAL,noShadow:sit,eyeMode:u.st=='pet'?'happy':null,lookAt:{x:Wm.x,y:GY-120}});if(u.st=='sit'&&Math.abs(Wm.x-u.x)<600)bubble(u.x,GY-150+Math.sin(T*3)*3,'💗 Streicheln?')}
+// Finale
+function finStart(img){G.fin={t:0,img,fl:[]};HOLD=0;INT=null;Wm.sit=0;Wm.tx=null;Wm.x=430;Wm.dir=1;Wm.z=0;Wm.hose=0;if(G.trip)tripEnd(0);RO.on=0;G.lap=null;G.glow=null;G.ask=null;G.nerv=null;REV.on=0;man=null;VIS.u=null;const m=cats[1];G.fin.mx=m.x;G.fin.my=m.y;$('#pol').classList.remove('on');$('#cap').classList.remove('on');document.body.classList.add('fin');arp();G.jet={t:0,dir:1,y:.16}}
+function finStep(dt){const F=G.fin;F.t+=dt;const m=cats[1];if(F.t>1.2){m.x=640;m.y=GY-50;m.f=-1;cats[0].purrT=1;m.purrT=1}
+ if(F.t>2&&F.t<12&&(F.dT=(F.dT||0)-dt)<=0){F.dT=.06;F.fl.push({x:rnd(0,W),y:-20,vy:rnd(40,90),vx:rnd(-20,20),r:rnd(0,6),vr:rnd(-2,2),e:['🌸','🌼','🌷','🌺','💮','✨'][Math.floor(Math.random()*6)],s:rnd(16,28)})}
+ F.fl.forEach(f=>{f.y+=f.vy*dt;f.x+=f.vx*dt+Math.sin(T+f.r)*15*dt;f.r+=f.vr*dt});F.fl=F.fl.filter(f=>f.y<H+30);
+ if(F.t>4&&(F.hT=(F.hT||0)-dt)<=0){F.hT=.3;PA.push({k:'h',x:rnd(520,660),y:GY-110,vx:rnd(-12,12),vy:-30,l:0,m:1.8})}
+ if(F.t>15&&!F.done){F.done=1;m.x=F.mx;m.y=F.my;m.f=-1;document.body.classList.remove('fin');G.fin=null;winOpen(F.img)}}
+function finOverlay(){const F=G.fin;if(!F)return;c.setTransform(D,0,0,D,0,0);
+ if(F.t<1.2){c.fillStyle='rgba(255,255,255,'+(1-F.t/1.2)*.8+')';c.fillRect(0,0,W,H)}
+ const v=cl((F.t-.5)/1.5,0,1)*(1-cl((F.t-14)/1,0,1));{const g=c.createRadialGradient(W/2,H*.55,Math.min(W,H)*.25,W/2,H*.55,Math.max(W,H)*.8);g.addColorStop(0,'rgba(40,10,40,0)');g.addColorStop(1,'rgba(40,10,40,'+(.55*v)+')');c.fillStyle=g;c.fillRect(0,0,W,H)}
+ F.fl.forEach(f=>{c.save();c.translate(f.x,f.y);c.rotate(f.r);c.font=f.s+'px serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText(f.e,0,0);c.restore()});
+ const L=[['Samtpfoten','t'],['Ende',''],['',''],['Rüdiger','als der Star'],['Müngeli','als Prinzessin vom Lager'],['Die Frau','als Gärtnerin mit Herz'],['Obsidian','als Hüter des Traums'],['Der Redner & der Stinker','als sie selbst'],['Die scheue Katze','als Gast vom See'],['',''],['Danke fürs Spielen! 💗','']];
+ const fs=Math.round(cl(Math.min(W,H)*.045,16,30)),lh=fs*1.9,y0=H*.88-(F.t-3)*Math.max(28,H*.06);if(F.t>3){c.textAlign='center';c.textBaseline='middle';L.forEach((r,i)=>{const y=y0+i*lh;if(y<-40||y>H+40)return;const a=cl(Math.min(y-H*.12,H*.95-y)/(H*.12),0,1);c.globalAlpha=a;if(r[1]=='t'){c.font='italic '+Math.round(fs*1.8)+'px Georgia,serif';c.fillStyle='#ffe29a'}else{c.font='italic '+fs+'px Georgia,serif';c.fillStyle='#ffe29a'}c.strokeStyle='rgba(0,0,0,.45)';c.lineWidth=3;const t=r[1]&&r[1]!='t'?r[0]+'  ·  '+r[1]:r[0];c.strokeText(t,W/2,y);c.fillText(t,W/2,y);c.globalAlpha=1})}}
+
+/* ===== Darf Rüdiger raus? ===== */
+function askStep(dt){if(G.doorOpenT&&T>G.doorOpenT){G.doorOpenT=0;if(!G.nerv&&!(G.trip&&G.trip.rs=='inside'))G.door=0}const A=G.ask;if(!A||G.loc!='home'||G.vis)return;if(A.kind=='trip'&&!G.trip){G.ask=null;return}A.t+=dt;if(A.t>=A.lim)askYes()}
+function askYes(){const A=G.ask;if(!A)return;G.ask=null;if(A.kind=='trip'){if(!G.trip)return;roOut();G.trip.rs='stalk';chatter()}else if(A.kind=='glow'){G.glow={t:0,f:[],n:0,spT:1.5,tgt:null,end:0};roOut();show('Glühwürmchenjagd!','Tippe auf die hell funkelnden, dann springt Rüdiger danach.')}}
+function askNo(){const A=G.ask;if(!A)return;G.ask=null;const k=cats[0];G.door=1;blip();FT.push({x:k.x+10,y:k.y-110,t:'Menno …',l:0,col:'#d8e4ff'});if(A.kind=='trip'&&G.trip){G.trip.rs='inside'}else{G.doorOpenT=T+6}}
+
 /* ===== Müngelis Ausflug ===== */
 const MSPOT=1480;
-function tripCan(){return G.loc=='home'&&!G.vis&&!G.slept&&!REV.on&&!G.nerv&&!G.lap&&!RO.on&&!man&&!G.glow&&!cats[0].sleep&&!cats[1].sleep&&!MRK.on&&!(INT&&['play','dress','food','sofa'].includes(INT.t))}
-function tripLogic(dt){if(G.trip){tripStep(dt);return}if(G.tripDay==SV.day||G.p<.12||G.p>.42||!tripCan())return;if(G.tripT==null)G.tripT=rnd(15,45);if((G.tripT-=dt)>0)return;G.tripT=null;G.tripDay=SV.day;if(Math.random()<.25)return;tripStart()}
+function tripCan(){return !G.ask&&!G.door&&G.loc=='home'&&!G.vis&&!G.slept&&!REV.on&&!G.nerv&&!G.lap&&!RO.on&&!G.glow&&!cats[0].sleep&&!cats[1].sleep&&!MRK.on&&!(INT&&['play','dress','food','sofa'].includes(INT.t))}
+function tripLogic(dt){if(G.trip){tripStep(dt);return}if(SV.day<2||G.tripDay==SV.day||G.p<.08||G.p>.26||!tripCan())return;if(G.tripT==null)G.tripT=rnd(3,10);if((G.tripT-=dt)>0)return;G.tripT=null;G.tripDay=SV.day;if(Math.random()<.25)return;tripStart()}
 function tripStart(){const m=cats[1];m.purr=0;m.annoy=0;if(INT&&INT.k===m)INT=null;G.trip={st:'down',t:0,hx:m.x,hy:m.y,rs:'calm',rT:rnd(2.5,4),sn:2};show('Müngeli macht einen Ausflug','Sie schleicht in den Garten. Halt Rüdiger von ihr fern: Tippe auf ihn, um ihn zu streicheln. Wählst du vorher ein Spielzeug, lenkt ihn das länger ab.')}
-function tripEnd(ok){const N=G.trip,m=cats[1];m.x=N.hx;m.y=N.hy;m.f=-1;m.annoy=0;G.trip=null;if(INT&&INT.t=='tdist')INT=null;
- if(ok){SV.st.trip=(SV.st.trip||0)+1;save();bonus(40,m.x,m.y-120,'Sicher zurück! +40','#ffe0f0');m.danceT=T+4;m.df=m.f;arp();show('Müngeli ist wieder oben','Ein schöner, ungestörter Ausflug. Zum Dank tanzt sie ein wenig.')}
+function tripEnd(ok){const N=G.trip,m=cats[1],ins=N.rs=='inside'||N.rs=='ask';m.x=N.hx;m.y=N.hy;m.f=-1;m.annoy=0;G.trip=null;if(G.ask&&G.ask.kind=='trip')G.ask=null;if(INT&&INT.t=='tdist')INT=null;if(N.rs=='inside')G.door=0;
+ if(ok&&ins){bonus(15,m.x,m.y-120,'Ungestört! +15','#ffe0f0');m.danceT=T+4;m.df=m.f;show('Müngeli ist wieder oben','Rüdiger musste drinnen bleiben, Müngeli hatte ihre Ruhe. Die Bürotür ist wieder offen.')}
+ else if(ok){SV.st.trip=(SV.st.trip||0)+1;mHeart(2,m.x,m.y-160);save();bonus(40,m.x,m.y-120,'Sicher zurück! +40','#ffe0f0');m.danceT=T+4;m.df=m.f;arp();show('Müngeli ist wieder oben','Ein schöner, ungestörter Ausflug. Zum Dank tanzt sie ein wenig.')}
  if(RO.on)roHome()}
 function tripStep(dt){const N=G.trip,m=cats[1],k=cats[0];if(G.loc!='home'||G.vis)return;N.t+=dt;const gnd=['walk','stay','back'].includes(N.st);
  if(N.st=='down'){if(m.x>LAD+2){m.x=Math.max(LAD,m.x-60*dt);m.f=-1}else{m.y=Math.min(GY,m.y+90*dt);if(m.y>=GY){N.st='walk'}}}
- else if(N.st=='walk'){m.f=-1;m.x-=50*dt;if(m.x<=MSPOT){m.x=MSPOT;N.st='stay';N.sT=0}}
- else if(N.st=='stay'){N.sT+=dt;m.f=-1;if((N.sn-=dt)<=0){N.sn=rnd(2.5,4);FT.push({x:m.x-20,y:m.y-80,t:['*schnupper*','🌼','Wie schön hier …','*blinzel*'][Math.floor(Math.random()*4)],l:0,col:'#ffe8f4'})}if(N.sT>18)N.st='back'}
- else if(N.st=='back'){m.f=1;m.x+=50*dt;if(m.x>=LAD){m.x=LAD;N.st='up'}}
+ else if(N.st=='walk'){m.f=-1;m.x-=60*dt;if(m.x<=MSPOT){m.x=MSPOT;N.st='stay';N.sT=0}}
+ else if(N.st=='stay'){N.sT+=dt;m.f=-1;if((N.sn-=dt)<=0){N.sn=rnd(2.5,4);FT.push({x:m.x-20,y:m.y-80,t:['*schnupper*','🌼','Wie schön hier …','*blinzel*'][Math.floor(Math.random()*4)],l:0,col:'#ffe8f4'})}if(N.sT>14)N.st='back'}
+ else if(N.st=='back'){m.f=1;m.x+=60*dt;if(m.x>=LAD){m.x=LAD;N.st='up'}}
  else if(N.st=='up'||N.st=='fup'){m.y=Math.max(N.hy,m.y-(N.st=='fup'?220:90)*dt);if(m.y<=N.hy){N.st=N.st=='fup'?'fhome':'home'}}
  else if(N.st=='home'||N.st=='fhome'){m.f=1;m.x=Math.min(N.hx,m.x+(N.st=='fhome'?200:60)*dt);if(m.x>=N.hx){if(N.st=='home')tripEnd(1);else{tripEnd(0)}return}}
  else if(N.st=='flee'){m.f=1;m.x+=280*dt;m.annoy=1;if(m.x>=LAD){m.x=LAD;N.st='fup'}}
  // Rüdiger
  if(N.rs=='calm'){if(gnd&&(N.rT-=dt)<=0){N.rs='notice';N.rT=1.1;FT.push({x:k.x+10,y:k.y-110,t:'❗ Müngeli?!',l:0,col:'#ffd0b0',big:1})}}
- else if(N.rs=='notice'){if((N.rT-=dt)<=0){roOut();N.rs='stalk';chatter()}}
- else if(N.rs=='stalk'){if(RO.hop||!RO.on)return;RO.eye='wide';RO.look={x:m.x,y:m.y-30};if(N.st=='flee'||N.st=='fup'||N.st=='fhome'||N.st=='up'||N.st=='home'||N.st=='down'){RO.st='sit';RO.f=1;return}roMove(m.x-60,40,dt,'stalk');
+ else if(N.rs=='notice'){if((N.rT-=dt)<=0){N.rs='ask';G.ask={kind:'trip',t:0,lim:10}}}
+ else if(N.rs=='stalk'){if(RO.hop||!RO.on)return;RO.eye='wide';RO.look={x:m.x,y:m.y-30};if(N.st=='flee'||N.st=='fup'||N.st=='fhome'||N.st=='up'||N.st=='home'||N.st=='down'){RO.st='sit';RO.f=1;return}roMove(m.x-60,46,dt,'stalk');
   if(gnd&&Math.abs(RO.x-m.x)<118){N.st='flee';N.rs='proud';hiss();FT.push({x:m.x,y:m.y-90,t:'Fauch!',l:0,col:'#ffb0a0',big:1});m.need=Math.min(100,m.need+25);RO.st='sit';RO.eye='happy';show('Rüdiger hat Müngeli erwischt','Sie flüchtet zurück ins Lager. Nächstes Mal früher ablenken!')}}
  else if(N.rs=='dist'){N.dT-=dt;RO.look={x:Wm.x,y:GY-60};if(N.toy){RO.st='swat';RO.f=Wm.x>RO.x?1:-1;RO.eye=null}else{RO.st='sit';RO.eye='happy';if((N.hT=(N.hT||0)-dt)<=0){N.hT=.6;PA.push({k:'h',x:RO.x+rnd(-8,14),y:RO.y-60,vx:rnd(-8,8),vy:-28,l:0,m:1.4})}}if(N.dT<=0){N.rs='stalk';if(INT&&INT.t=='tdist')INT=null;FT.push({x:RO.x,y:RO.y-90,t:'Und jetzt … Müngeli!',l:0,col:'#ffd0b0'})}}
  else if(N.rs=='proud'){if(RO.on&&!RO.hop&&RO.mode!='home'&&N.t>0){N.pT=(N.pT||0)+dt;if(N.pT>2.2)roHome()}}}
@@ -1841,8 +1895,8 @@ function drawTripToy(){if(!Wm.hand||!Wm.hand.toy||G.loc!='home')return;c.font='2
 
 /* ===== Glühwürmchenjagd ===== */
 function glowLogic(dt){
- if(!G.glow){if(G.glowDay==SV.day||G.loc!='home'||G.vis||G.slept||G.p<.73||G.p>.8||nightNess()<.25||REV.on||G.nerv||G.lap||RO.on||G.trip||cats[0].sleep)return;if(G.glowT==null)G.glowT=rnd(2,8);if((G.glowT-=dt)>0)return;G.glowT=null;G.glowDay=SV.day;
-  G.glow={t:0,f:[],n:0,spT:2,tgt:null,end:0};roOut();show('Glühwürmchenjagd!','Rüdiger jagt Glühwürmchen. Tippe auf die hell funkelnden, dann springt er danach.');return}
+ if(!G.glow){if(SV.day<3||G.ask||G.glowDay==SV.day||G.loc!='home'||G.vis||G.slept||G.p<.72||G.p>.84||nightNess()<.18||(G.ms||0)>.45||REV.on||G.nerv||G.lap||RO.on||G.trip||cats[0].sleep)return;if(G.glowT==null)G.glowT=rnd(1,3);if((G.glowT-=dt)>0)return;G.glowT=null;G.glowDay=SV.day;
+  G.ask={kind:'glow',t:0,lim:10};return}
  const L=G.glow;if(G.loc!='home'||G.vis)return;L.t+=dt;const vw=W/SC,x0=Math.max(840,camX+70),x1=Math.min(GATE-50,camX+vw-70);
  if(L.t<24&&x1>x0&&(L.spT-=dt)<=0&&L.f.filter(f=>!f.c).length<2){L.spT=rnd(1.1,2);L.f.push({x:rnd(x0,x1),y:rnd(GY-200,GY-80),ph:rnd(0,6),t:0,life:rnd(4.2,5.6),c:0,u:0})}
  for(const f of L.f){f.t+=dt;if(!f.c){if(!f.lock){f.x+=Math.sin(T*1.3+f.ph)*26*dt;f.y=cl(f.y+Math.cos(T*1.7+f.ph)*18*dt,GY-215,GY-60)}}else{f.u=Math.min(1,f.u+dt/1.7);if(f.u>=1&&!f.sky){f.sky=1;(G.skyF=G.skyF||[]).push({x:f.tx,y:f.ty,t:0})}}}
@@ -1873,14 +1927,14 @@ function drawLap(){const L=G.lap;if(!L||G.loc!='home'||G.vis)return;const k=cats
  drawRudi({k,x:p.x,y:p.y,f:1,st:'curl',ph:T,noShadow:1,eyeMode:'happy'})}
 
 /* ===== Unruhe vor dem Revierlauf ===== */
-const NERVLIM=11,LOCKDUR=38,DOORX=766;
+const NERVLIM=11,LOCKDUR=25,DOORX=766;
 function nervSpot(){const N=G.nerv;return N&&N.spot=='attic'?{x:540,y:118}:{x:704,y:136}}
 function nervStart(){G.revDay=SV.day;G.nerv={st:'nerv',t:0};man=null;const k=cats[0];k.purr=0;if(k.beh)rBehEnd(k);$('#cap').classList.remove('on');hiss()}
 function nervLet(){G.nerv=null;G.door=0;if(INT&&INT.t=='door')INT=null;revStart()}
 function nervLock(){const N=G.nerv;N.st='lock';N.t=0;N.spot=Math.random()<.5?'attic':'roof';N.sT=2.5;SV.rudi.h=Math.max(0,SV.rudi.h-1);cats[0].need=Math.min(100,cats[0].need+15);save();
  show(N.spot=='attic'?'Rüdiger schmollt im Estrich':'Rüdiger sitzt auf dem Dach','Die Tür ist zu, er bleibt drin. Beleidigt schaut er zu Müngeli hinüber. Heute gibt es keinen Revierlauf.')}
 function nervStep(dt){G.doorU=(G.doorU||0)+((G.door?1:0)-(G.doorU||0))*Math.min(1,dt*6);const N=G.nerv;if(!N||G.loc!='home'||G.vis)return;N.t+=dt;const k=cats[0];
- if(N.st=='nerv'){if(N.close){N.t-=dt;if(G.door&&G.doorU>.9)nervLock();else if(!G.door&&!(INT&&INT.t=='door'))N.close=0;return}
+ if(N.st=='nerv'){if(N.close){N.t-=dt;if(G.door&&G.doorU>.9)nervLock();return}
   if((N.gT=(N.gT==null?1.2:N.gT)-dt)<=0){N.gT=rnd(1.8,2.8);FT.push({x:k.x+30,y:k.y-110,t:['Grrr …','*Schwanz zuck*','Raus! Raus!','Mein Revier!','Fffff …'][Math.floor(Math.random()*5)],l:0,col:'#ffc8b0'})}
   if(N.t>=NERVLIM)nervLet()}
  else if(N.st=='lock'){if(N.t>1&&(N.sT-=dt)<=0){N.sT=rnd(4,6.5);const q=nervSpot();FT.push({x:q.x,y:q.y-(N.spot=='attic'?40:100),t:['Müngeli …','*seufz*','Hmpf.','Da drüben ist mein Revier …','Ich darf nie raus.'][Math.floor(Math.random()*5)],l:0,col:'#d8e4ff'})}
@@ -1910,9 +1964,10 @@ const ACH=[
 {id:'dusche',n:'Frische Brise',d:'Dusche den Stinker 8-mal mit dem Schlauch sauber.',r:80,v:()=>SV.st.stink||0,g:8},
 {id:'revier',n:'Revierwächterin',d:'Rette Rüdiger 5-mal beim Revierlauf.',r:100,v:()=>SV.st.rev,g:5},
 {id:'tanz',n:'Tanzpartnerin',d:'Müngeli tanzt 10-mal zum Dank.',r:60,v:()=>SV.st.dance,g:10},
-{id:'panther',n:'Obsidians Respekt',d:'Beantworte alle drei Fragen des schwarzen Panthers richtig.',r:150,v:()=>SV.st.panther||0,g:1},
-{id:'jungle',n:'Leopardentraum',d:'Koste den Honig des Imkers.',r:100,v:()=>SV.st.jungle||0,g:1},
-{id:'foto',n:'Tierfotografin',d:'Fülle das ganze Fotoalbum.',r:200,v:()=>PHOTOS.filter(p=>SV.photos[p.id]).length,g:12},
+{id:'panther',n:'Hüterin des Dschungels',d:'Beantworte alle drei Fragen des schwarzen Panthers Obsidian richtig.',r:500,v:()=>SV.st.panther||0,g:1},
+{id:'jbuch',n:'Dschungelforscherin',d:'Entdecke alle 8 Tiere im Leopardentraum.',r:200,v:()=>JCRE.filter(c=>SV.jfound&&SV.jfound[c.id]).length,g:8},
+{id:'jungle',n:'Leopardentraum',d:'Koste den besonderen Honig aus dem Tierladen.',r:100,v:()=>SV.st.jungle||0,g:1},
+{id:'foto',n:'Tierfotografin',d:'Fülle das ganze Fotoalbum.',r:200,v:()=>PHOTOS.filter(p=>SV.photos[p.id]).length,g:13},
 {id:'fruh',n:'Pünktlich wie ein Uhrwerk',d:'Gib Rüdiger 7-mal pünktlich sein Wunschfrühstück.',r:150,v:()=>SV.st.bf,g:7},
 {id:'shy',n:'Vertrauen gewonnen',d:'Die scheue Katze kuschelt 5-mal auf deinem Schoss.',r:80,v:()=>SV.shy||0,g:5},
 {id:'toys',n:'Volle Spielzeugkiste',d:'Kaufe alle 5 Spielzeuge.',r:150,v:()=>SV.toys.length,g:5},
@@ -1931,12 +1986,11 @@ function bfStep(){const b=bfNow();cats[0].sad=b&&b.st=='late'?1:0;if(!b||b.st!='
 function rudiBag(l,row){const L=rLvl();albBag(l);
  const hw=document.createElement('h3');hw.className='sh3';hw.textContent='Rüdigers Garderobe';l.append(hw);
  const wr=(e,n,d,own,key,extra)=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span class="e">'+e+'</span><div>'+n+'<small>'+d+'</small></div>';if(own){const on=SV.rudi.wear[key],cur=G.loc=='home'&&INT&&INT.t=='dress'&&INT.item==key;const b=document.createElement('button');b.textContent=cur?'Kommt gleich …':on?'Ausziehen':'Anziehen';b.disabled=!!cur;b.onclick=()=>{audio();dressRudi(key,!on)};r.append(b);if(extra)r.append(extra)}l.append(r)};
- const cb=document.createElement('button');cb.textContent='Farbe';cb.onclick=()=>{audio();SV.rudi.col=(SV.rudi.col+1)%COLC.length;save();bagRender()};cb.style.marginLeft='6px';
- wr('🔔','Halsband mit Glöckchen',L>=2?'Farbe: '+COLC[SV.rudi.col%COLC.length][0]+(SV.rudi.wear.col?' · trägt er gerade':''):'Ab 30 Herzen freigeschaltet.',L>=2,'col',L>=2?cb:null);
- wr('🎀','Zimmermädchen-Häubchen',SV.rudi.capOwn?'Weisse Rüschen mit schwarzer Schleife'+(SV.rudi.wear.cap?' · trägt er gerade':''):'Fang Rüdiger beim Revierlauf ein, dann bekommst du es.',SV.rudi.capOwn,'cap');
+ wr('🎀','Zimmermädchen-Häubchen',SV.rudi.capOwn?'Weisse Rüschen mit schwarzer Schleife'+(SV.rudi.wear.cap?' · trägt er gerade':''):'Im Tierladen erhältlich, für 5000 Pfotenpunkte.',SV.rudi.capOwn,'cap');
 const h=document.createElement('h3');h.className='sh3';h.textContent='Rüdigers Freundschaft';l.append(h);const nx=RLV[L];
  row('💗','Herzen',SV.rudi.h,nx?'Noch '+(nx-SV.rudi.h)+' bis: '+RUNL[L]+'.':'Ihr seid beste Freunde! Alles freigeschaltet.');
  RUNL.forEach((t,i)=>row(i<L?'✅':'🔒','Stufe '+(i+1)+' ('+RLV[i]+' ♥)','',t));
+ {const ML=mLvl(),hm=document.createElement('h3');hm.className='sh3';hm.textContent='Müngelis Freundschaft';l.append(hm);const mx=MLV[ML];row('💗','Herzen von Müngeli',SV.mung.h,mx?'Noch '+(mx-SV.mung.h)+' bis: '+MUNL[ML]+'. Herzen gibt es, wenn sie sich satt getrunken hat und tanzt, und für ungestörte Ausflüge.':'Ihr seid beste Freundinnen!');MUNL.forEach((t,i)=>row(i<ML?'✅':'🔒','Stufe '+(i+1)+' ('+MLV[i]+' ♥)','',t))}
  const fv=rFav(),fd=fv&&TOYS.find(x=>x.id==fv);row(fd?fd.e:'❔','Lieblingsspielzeug',fd?'×2':'',fd?fd.n+': doppelte Punkte, und manchmal spielt er allein damit.':'Spiel oft mit ihm, dann findet er eins.');
 
  const h2=document.createElement('h3');h2.className='sh3';h2.textContent='Rüdigers Geschenke ('+GIFTS.filter(g=>SV.rudi.gifts[g.id]).length+' / '+GIFTS.length+')';l.append(h2);
@@ -1945,6 +1999,7 @@ function bagRender(){const l=$('#bagl');l.textContent='';const row=(e,n,cnt,d)=>
  const h=document.createElement('h3');h.className='sh3';h.textContent='Kräuter';achBag(l,row);l.append(h);
  Object.entries(HERBT).forEach(([k,v])=>SV.found[k]?row(v.e,v.n,SV.inv[k],v.d):row('❔','Noch nicht gefunden','–','Wächst irgendwo auf der Bergalp.'));
  if(SV.inv.b_sun>0){const hb=document.createElement('h3');hb.className='sh3';hb.textContent='Aus der Gärtnerei';l.append(hb);Object.entries(BOUQ).forEach(([k,v])=>row(v.e,v.n,SV.inv['b_'+k]||0,'Restbestand, zu verkaufen auf dem Markt.'))}
+ {const hj=document.createElement('h3');hj.className='sh3';hj.textContent='🌿 Dschungelbuch ('+JCRE.filter(c=>SV.jfound[c.id]).length+' / '+JCRE.length+')';l.append(hj);JCRE.forEach(cr=>SV.jfound[cr.id]?row(cr.e,cr.n,'✓',cr.d):row('❔','Noch nicht entdeckt','–','Versteckt sich im Leopardentraum hinter glühenden Augen im Farn.'))}
  const h2=document.createElement('h3');h2.className='sh3';h2.textContent='Aus der Hütte';l.append(h2);
  row('🍵','Kräutertee',SV.inv.tea,'Aus 1 Bergminze und 1 Arnika, am Tisch in der Hütte (Feuer nötig).');
  const h3=document.createElement('h3');h3.className='sh3';h3.textContent='Am See';l.append(h3);row('🐈‍⬛','Scheue Katze',SV.shy||0,'So oft hat sie sich schon auf deinen Schoss gekuschelt.');rudiBag(l,row)}
@@ -2122,10 +2177,10 @@ function lureAct(a){const u=SHY.u;if(!u)return;audio();
  if(ok){u.trust+=18;u.mt=Math.min(u.mt,.8);chime(SC5[5],.2);if(a=='blink'){u.blinkT=T;FT.push({x:u.x,y:GY-100,t:'💛 blinzelt zurück',l:0,col:'#ffe29a'})}else{u.treatT=T;FT.push({x:u.x,y:GY-100,t:'😋 mampft',l:0,col:'#ffe29a'})}}
  else{u.trust-=15;u.mood='shy';u.mt=2;u.mdur=2;u.x=Math.max(PIER0-30,u.x-40);FT.push({x:u.x,y:GY-100,t:'💦 zu hastig',l:0,col:'#ffb0a0'});hiss()}}
 ['#jroar','#jwake'].forEach(id=>$(id).addEventListener('pointerdown',e=>e.stopPropagation()));$('#jroar').onclick=()=>jRoar();$('#jwake').onclick=()=>{audio();if(G.loc=='jungle'&&!G.trans)startTrans('out')};
-for(const id of['#nvdoor','#nvlet'])$(id).addEventListener('pointerdown',e=>e.stopPropagation());$('#nvdoor').onclick=()=>{audio();if(G.nerv&&G.nerv.st=='nerv'){G.nerv.close=1;INT={t:'door'}}};$('#nvlet').onclick=()=>{audio();if(G.nerv&&G.nerv.st=='nerv')nervLet()};
+for(const id of['#nvdoor','#nvlet'])$(id).addEventListener('pointerdown',e=>e.stopPropagation());$('#nvdoor').onclick=()=>{audio();if(G.ask){askNo();return}if(G.nerv&&G.nerv.st=='nerv'&&!G.nerv.close){G.nerv.close=1;G.door=1;blip();vib(30)}};$('#nvlet').onclick=()=>{audio();if(G.ask){askYes();return}if(G.nerv&&G.nerv.st=='nerv')nervLet()};
 $('#hoseput').addEventListener('pointerdown',e=>e.stopPropagation());$('#hoseput').onclick=()=>{audio();INT={t:'hoseput'};HOSE.manual=0};
 document.querySelectorAll('#lure button').forEach(b=>{b.addEventListener('pointerdown',e=>e.stopPropagation());b.onclick=()=>lureAct(b.dataset.a)});
-function hoseUI(){const N=G.nerv,nv=!!(N&&N.st=='nerv'&&!N.close&&G.loc=='home'&&!G.vis);$('#nervbar').classList.toggle('on',nv);if(nv)$('#nvf i').style.width=(100*Math.max(0,1-N.t/NERVLIM)).toFixed(1)+'%';$('#hosebar').classList.toggle('on',G.loc=='home'&&!!Wm.hose&&!G.vis&&!REV.on&&!nv);$('#revbar').classList.toggle('on',REV.on&&G.loc=='home');if(REV.on){const sk=REV.st=='stalk',ca=REV.st=='carry'||REV.st=='rocket';$('#rvl').textContent=sk?'Zeit':'Angst';$('#rvf i').style.width=(sk?100*(1-Math.min(1,REV.t/REV.lim)):ca?0:REV.fear)+'%';$('#rvc').textContent=REV.chased+' verscheucht';
+function hoseUI(){const N=G.nerv,A=G.ask,nv=!!(((N&&N.st=='nerv'&&!N.close)||A)&&G.loc=='home'&&!G.vis);$('#nervbar').classList.toggle('on',nv);if(nv){const fr=A?1-A.t/A.lim:1-N.t/NERVLIM;$('#nvf i').style.width=(100*Math.max(0,fr)).toFixed(1)+'%';const key=A?A.kind:'nerv';if(G.askKey!==key){G.askKey=key;$('#nvtx').innerHTML=key=='trip'?'🐈 <b>Rüdiger hat Müngeli entdeckt!</b> Darf er in den Garten?':key=='glow'?'✨ <b>Glühwürmchen!</b> Darf Rüdiger zum Jagen in den Garten?':'😾 <b>Rüdiger wird unruhig!</b> Schliess die Bürotür, sonst läuft er los.';$('#nvdoor').textContent=key=='nerv'?'🚪 Tür schliessen':'🚪 Bleib drin';$('#nvlet').textContent=key=='nerv'?'Laufen lassen':'🌳 Ja, raus!'}}else G.askKey=null;$('#hosebar').classList.toggle('on',G.loc=='home'&&!!Wm.hose&&!G.vis&&!REV.on&&!nv);$('#revbar').classList.toggle('on',REV.on&&G.loc=='home');if(REV.on){const sk=REV.st=='stalk',ca=REV.st=='carry'||REV.st=='rocket';$('#rvl').textContent=sk?'Zeit':'Angst';$('#rvf i').style.width=(sk?100*(1-Math.min(1,REV.t/REV.lim)):ca?0:REV.fear)+'%';$('#rvc').textContent=REV.chased+' verscheucht';
   const tx=sk?(REV.grab?'🏃 Die Frau klettert hoch …':'🐈 <b>Schnell!</b> Tippe, damit die Frau Rüdiger schnappt!'):REV.st=='carry'?'🏠 Rüdiger wird nach Hause getragen':REV.st=='rocket'?'🚀 Müngeli ist weg!':REV.st=='standoff'?(REV.fox&&REV.fox.k=='coon'?'🦝 <b>Waschbär!</b>':'🦊 <b>Fuchs!</b>')+' Spritz ihn weg, bevor er angreift!':'🐈 <b>Revierlauf!</b> Halte gedrückt und spritze Krähen, Füchse und Waschbären weg.';if(REV.out!=tx){REV.out=tx;$('#rvt').innerHTML=tx}const hide=(REV.st=='run'||REV.st=='scared'||REV.st=='standoff')&&T-(REV.t0||0)>4;$('#rvt').style.display=hide?'none':'';$('#revbar').classList.toggle('slim',hide)}}
 function lureUI(){const u=SHY.u,el=$('#lure'),on=G.loc=='see'&&u&&['peek','mood','jump','lap'].includes(u.st);el.classList.toggle('on',!!on);if(!on)return;
  const lap=u.st=='lap';el.querySelector('[data-a=pet]').style.display=lap?'':'none';el.querySelector('[data-a=blink]').style.display=lap?'none':'';el.querySelector('[data-a=treat]').style.display=lap?'none':'';$('#lbar').style.display=lap?'none':'';
@@ -2236,7 +2291,7 @@ function visSnd(k){if(!AC)return;const t=AC.currentTime,d=16;
  if(k==1)[55,82.4].forEach(f=>{const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+7);o.connect(g);g.connect(mst);o.start(t);o.stop(t+7.2)})}
 const sparkle=(x,y,r,col)=>{c.fillStyle=col;c.beginPath();for(let i=0;i<8;i++){const rr=i%2?r*.35:r,a=i*Math.PI/4;c.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}c.closePath();c.fill()};
 const catPos=k=>({x:BENCH+(k.id=='A'?-100:115),y:GY-4,f:k.id=='A'?1:-1});
-function drawCatV(k){if(k.hide)return;if(k.id=='A'&&RO.on&&G.loc=='home'&&!G.vis){drawRO();return}if(k.id=='A'&&G.lap&&G.loc=='home'&&!G.vis)return;if(k.id=='A'&&G.nerv&&!G.vis&&G.loc=='home'){drawNerv(k);return}if(k.id=='A'&&drawRBeh(k))return;if(k.id=='A'&&!G.vis&&!k.sleep&&(k.rollT>T||k.trickT>T)){const rl=k.rollT>T;drawRudi({k,x:k.x,y:k.y+4,f:k.f,st:rl?'roll':'sit',ph:T+k.ph,noShadow:1,lookAt:{x:Wm.x,y:GY-Wm.z-130},eyeMode:rl?null:'open'});return}if(!G.vis){drawCat(k);return}const o=catPos(k),sx=k.x,sy=k.y,sf=k.f;k.x=o.x;k.y=o.y;k.f=o.f;drawCat(k);k.x=sx;k.y=sy;k.f=sf}
+function drawCatV(k){if(k.hide)return;if(k.id=='A'&&G.fin){drawRudi({k,x:k.x,y:k.y+4,f:1,st:'cute',ph:T+k.ph,noShadow:1,eyeMode:G.fin.t>4?'happy':'cute',lookAt:{x:cats[1].x,y:cats[1].y-40}});return}if(k.id=='A'&&RO.on&&G.loc=='home'&&!G.vis){drawRO();return}if(k.id=='A'&&G.lap&&G.loc=='home'&&!G.vis)return;if(k.id=='A'&&G.nerv&&!G.vis&&G.loc=='home'){drawNerv(k);return}if(k.id=='A'&&drawRBeh(k))return;if(k.id=='A'&&!G.vis&&!k.sleep&&(k.rollT>T||k.trickT>T)){const rl=k.rollT>T;drawRudi({k,x:k.x,y:k.y+4,f:Wm.x>k.x?1:-1,st:rl?'roll':'cute',ph:T+k.ph,noShadow:1,lookAt:{x:Wm.x,y:GY-Wm.z-130},eyeMode:rl?null:'cute'});if(!rl){const u=1-(k.trickT-T)/3;for(let i=0;i<3;i++){const a=T*2+i*2.1,r=44+Math.sin(T*3+i)*6;c.globalAlpha=Math.min(1,u*3)*.9;sparkle(k.x+Math.cos(a)*r,k.y-70+Math.sin(a)*r*.6,4+Math.sin(T*6+i)*1.5,'#fff6c8');c.globalAlpha=1}}return}if(!G.vis){drawCat(k);return}const o=catPos(k),sx=k.x,sy=k.y,sf=k.f;k.x=o.x;k.y=o.y;k.f=o.f;drawCat(k);k.x=sx;k.y=sy;k.f=sf}
 function drawWomanV(){const v=G.vis;if(!v||v.k!=0){drawWoman();return}const m=morph(v.t,v.dur),s=Math.max(.02,1-m);
  c.save();c.translate(Wm.x,GY);c.scale(s,s);c.translate(-Wm.x,-GY);if(s>.04)drawWoman();c.restore();
  if(m>.02){WC.x=BENCH-8;WC.y=GY-56;const sc=m*1.25*(1+Math.sin(m*Math.PI)*.18);
@@ -2315,8 +2370,8 @@ function draw(){
  sceneParking(ni);sceneHouse(sk,ni);winBirds();sunBeam(ni);drawCar();rug();drawGift();sceneGarden(ni);sceneShed(ni);drawHoney();
  // Mondlicht auf der Bank
  if(ms>.3&&!G.slept){const g=c.createRadialGradient(BENCH,GY-60,10,BENCH,GY-60,150);g.addColorStop(0,'rgba(255,248,214,'+(.35*ms)+')');g.addColorStop(1,'rgba(255,248,214,0)');c.fillStyle=g;c.beginPath();c.arc(BENCH,GY-60,150,0,TAU);c.fill()}
- if(!lev)bench();reel(REEL);drawBowl();hoseLine();
- if(!lev)cats.forEach(k=>{if(!(REV.on&&k.id=='A'))k.id=='B'?drawMung(k):drawCatV(k)});drawMan();drawImker();drawRev();nervOverlay();if(!lev)drawWomanV();drawLap();drawTripToy();drawRevCarry();drawGarCarry();drawPlay();drawSolo();drawPen();photoHint();drawFood();drawWater();
+ if(!lev)bench();reel(REEL);drawBowl();drawMGift();hoseLine();
+ if(!lev)cats.forEach(k=>{if(!(REV.on&&k.id=='A'))k.id=='B'?drawMung(k):drawCatV(k)});drawMan();drawVisCat();drawRev();nervOverlay();if(!lev)drawWomanV();drawLap();drawTripToy();drawRevCarry();drawGarCarry();drawPlay();drawSolo();drawPen();photoHint();drawFood();drawWater();
  // Vordergrund-Gras
  const r=srng(31);c.strokeStyle='#4e8a4c';c.lineWidth=2;for(let i=0;i<260;i++){const x=770+r()*(GATE-770),y=GY+70+r()*46,sw=Math.sin(T+i)*2;c.beginPath();c.moveTo(x,y);c.lineTo(x+sw-3,y-10);c.moveTo(x,y);c.lineTo(x+sw+3,y-11);c.stroke()}
  gardenOverlay();drawFx();visWorld();
@@ -2330,11 +2385,14 @@ function draw(){
  if(ms>=.85&&!G.slept){glow(BENCH,GY-70,110+Math.sin(T*3)*12,.35,'255,244,190')}
  c.globalCompositeOperation='source-over';c.setTransform(D,0,0,D,0,0);if(T-(G.flashT||-9)<.3){c.fillStyle='rgba(255,255,255,'+(.8*(1-(T-G.flashT)/.3))+')';c.fillRect(0,0,W,H)}visScreen(ty)}
 /* ===== Oberfläche ===== */
-function hud(){const p=G.p,ms=G.ms;$('#pt').textContent=Math.floor(SV.pts);$('#dn').textContent=SV.day;
+function hud(){const p=G.p,ms=G.ms;$('#pt').textContent=Math.floor(SV.pts);goalHud();$('#dn').textContent=SV.day;
  $('#tod').textContent=p<.1?'Dämmerung':p<.3?'Vormittag':p<.5?'Mittag':p<.66?'Nachmittag':p<.76?'Abend':p<.84?'Nacht':'tiefe Nacht';
  $('#tb i').style.left=(p*100)+'%';$('#tb').classList.toggle('hot',ms>=.85&&!G.slept);{let bh=0;for(const id of['#hosebar','#jbar','#lure','#revbar','#nervbar']){const el=$(id);if(el.classList.contains('on')&&el.offsetHeight)bh=Math.max(bh,el.offsetHeight)}const v=bh?bh+6+'px':'0px';if(G.barV!==v){G.barV=v;document.documentElement.style.setProperty('--bar',v)}}{const b=bfNow();$('#bfm').classList.toggle('on',!!(b&&b.st=='wait'))}shopBtns();lureUI();hoseUI()}
 function trayRender(){const t=$('#tray');t.textContent='';{const cb=document.createElement('button');cb.className='tb';cb.textContent='📷';cb.title='Foto machen';cb.setAttribute('aria-label','Foto machen');cb.addEventListener('pointerdown',e=>e.stopPropagation());cb.onclick=()=>{audio();takePhoto()};t.append(cb)}const mk=(key,d,cnt)=>{const b=document.createElement('button');b.className='tb'+(selToy==key?' on':'');b.textContent=d.e;if(cnt!=null){const s=document.createElement('small');s.textContent=cnt;b.append(s)}b.title=d.n;b.setAttribute('aria-label',d.n);b.addEventListener('pointerdown',e=>e.stopPropagation());b.onclick=()=>{audio();selToy=selToy==key?null:key;trayRender();if(selToy)show(d.n,cnt!=null?'Tippe jetzt auf eine Katze, um sie zu füttern.':'Tippe jetzt auf eine Katze, um mit ihr zu spielen.')};t.append(b)};
  SV.toys.forEach(id=>{const d=TOYS.find(x=>x.id==id);if(d)mk(id,d)});FOOD.forEach(d=>{const n=SV.food[d.id]||0;if(n>0)mk('food:'+d.id,d,n)});GIFT.forEach(d=>{const n=SV.inv[d.id]||0;if(n>0)mk('inv:'+d.id,d,n)})}
+const SPECIAL=[{id:'honey',n:'Besonderer Bergblütenhonig',e:'🍯',p:800,d:'Ein Glas, das Träume weckt … Steht nach dem Kauf im Lager.'},{id:'cap',n:'Zimmermädchen-Häubchen',e:'🎀',p:5000,d:'Weisse Rüschen mit schwarzer Schleife. Ziehst du Rüdiger im Rucksack an.'}];
+const starN=()=>SCATS.filter(c=>SV.stars&&SV.stars[c.id]).length,bandOk=()=>starN()>=3;
+const spOwn=id=>id=='honey'?!!SV.honey:!!SV.rudi.capOwn;
 const SHOPS={pet:{n:'Tierladen „Schnurrhaar“',d:'Spielzeug und Spezialfutter für Rüdiger und Müngeli. Gekauftes wählst du unten in der Leiste aus und tippst dann auf eine Katze.',e:'🐾',x:380,col:'#3a8ad8',t:'Tierladen'},
 
  mob:{n:'Möbelgeschäft „Holzwurm“',d:'Schöne Dinge für die Berghütte auf der Alp.',e:'🪑',x:980,col:'#c0702a',t:'Möbel'}};
@@ -2343,17 +2401,19 @@ function openShop(k){shopCat=k;HOLD=1;$('#shpt').textContent=SHOPS[k].n;$('#shpd
 function shopRender(){const l=$('#shl');l.textContent='';const row=(d,label,dis,id,extra)=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span class="e">'+d.e+'</span><div>'+d.n+'<small>'+d.d+(extra||'')+'</small></div>';const b=document.createElement('button');b.dataset.id=id;b.textContent=label;b.disabled=dis;r.append(b);l.append(r)};
  const head=t=>{const h=document.createElement('h3');h.className='sh3';h.textContent=t;l.append(h)};
  if(shopCat=='pet'){head('Spielzeug');TOYS.forEach(d=>{const own=SV.toys.includes(d.id);row(d,own?'Gekauft ✓':'🐾 '+d.p,own||SV.pts<d.p,d.id)});
+  head('Besonderes');SPECIAL.forEach(d=>{const own=spOwn(d.id),lock=d.id=='cap'&&!bandOk();row(d,own?(d.id=='honey'?'Steht im Lager':'Gekauft ✓'):lock?'🔒 Band fehlt':'🐾 '+d.p,own||lock||SV.pts<d.p,'sp:'+d.id,d.id=='cap'&&!own?(bandOk()?' 🌙 Mondseide-Band ✓':' Braucht ein Band aus Mondseide: Finde 3 Sternenkatzen auf der Bergalp ('+starN()+'/3).'):'')});
   head('Spezialfutter');FOOD.forEach(d=>{const n=SV.food[d.id]||0,b=bfNow(),w=b&&b.st!='done'&&b.want==d.id;row(d,'🐾 '+d.p,SV.pts<d.p,'food:'+d.id,(n?' Im Vorrat: '+n+'.':'')+(w?' ⭐ Rüdigers Frühstückswunsch!':''))})}
  else if(shopCat=='mob'){HUT.forEach(d=>{const own=SV.hut.includes(d.id);row(d,own?'Gekauft ✓':'🐾 '+d.p,own||SV.pts<d.p,'hut:'+d.id)})}
  else{head('Hilfsgärtner (pro Beet einer, bis zu '+F.length+')');HELPERS.forEach(h=>{const e=SV.helpers.find(x=>x.id==h.id);row({e:h.e,n:h.n,d:'👍 '+h.good+' 😩 Nervig: '+h.bad},e?'Entlassen':'🐾 '+h.p,e?false:(SV.pts<h.p||SV.helpers.length>=F.length),'help:'+h.id,e?' Pflegt gerade die '+F[e.bed].n+'.':'')})}
  const p=document.createElement('p');p.textContent='Du hast 🐾 '+Math.floor(SV.pts)+' Pfotenpunkte.';l.append(p)}
-function shopBtns(){if(!$('#shp').classList.contains('on'))return;$('#shl').querySelectorAll('button').forEach(b=>{const id=b.dataset.id;if(id.startsWith('hut:')){const d=HUT.find(x=>x.id==id.slice(4));b.disabled=SV.hut.includes(d.id)||SV.pts<d.p}else if(id.startsWith('help:')){const h=hDef(id.slice(5)),e=SV.helpers.find(x=>x.id==h.id);b.disabled=e?false:(SV.pts<h.p||SV.helpers.length>=F.length)}else if(id.startsWith('food:')){const d=FOOD.find(x=>x.id==id.slice(5));b.disabled=SV.pts<d.p}else{const d=TOYS.find(x=>x.id==id);b.disabled=SV.toys.includes(d.id)||SV.pts<d.p}})}
+function shopBtns(){if(!$('#shp').classList.contains('on'))return;$('#shl').querySelectorAll('button').forEach(b=>{const id=b.dataset.id;if(id.startsWith('hut:')){const d=HUT.find(x=>x.id==id.slice(4));b.disabled=SV.hut.includes(d.id)||SV.pts<d.p}else if(id.startsWith('help:')){const h=hDef(id.slice(5)),e=SV.helpers.find(x=>x.id==h.id);b.disabled=e?false:(SV.pts<h.p||SV.helpers.length>=F.length)}else if(id.startsWith('food:')){const d=FOOD.find(x=>x.id==id.slice(5));b.disabled=SV.pts<d.p}else if(id.startsWith('sp:')){const d=SPECIAL.find(x=>x.id==id.slice(3));b.disabled=spOwn(d.id)||SV.pts<d.p||(d.id=='cap'&&!bandOk())}else{const d=TOYS.find(x=>x.id==id);b.disabled=SV.toys.includes(d.id)||SV.pts<d.p}})}
 $('#shl').onclick=e=>{const b=e.target.closest('button');if(!b)return;audio();const id=b.dataset.id;
  if(id.startsWith('hut:')){const d=HUT.find(x=>x.id==id.slice(4));if(!d||SV.hut.includes(d.id)||SV.pts<d.p)return;SV.pts-=d.p;SV.hut.push(d.id);save();chime(SC5[6],.35);shopRender();show(d.n+' gekauft','Steht ab jetzt in der Hütte auf der Bergalp.');return}
  if(id.startsWith('help:')){const h=hDef(id.slice(5)),e=SV.helpers.find(x=>x.id==h.id);
   if(e){SV.helpers=SV.helpers.filter(x=>x.id!=h.id);ensureHelpers();save();shopRender();show(h.n+' ist entlassen','Das '+F[e.bed].n+'beet ist wieder frei für einen anderen Gärtner.');return}
   if(SV.pts<h.p||SV.helpers.length>=F.length)return;const bed=[1,0,2,3,4].find(bi=>!SV.helpers.some(x=>x.bed==bi));SV.pts-=h.p;SV.helpers.push({id:h.id,bed});ensureHelpers();const R=HRT[h.id];R.x=GATE;R.tx=F[bed].x+60;R.idleT=8;helpSay(R,'Grüezi! Ich kümmere mich um die '+F[bed].n+'.',4,1);
   save();chime(SC5[7],.35);arp();shopRender();show(h.n+' ist angestellt',h.n+' kommt durchs Gartentor und pflegt ab jetzt die '+F[bed].n+'. Achtung: '+h.bad);return}
+ if(id.startsWith('sp:')){const d=SPECIAL.find(x=>x.id==id.slice(3));if(!d||spOwn(d.id)||SV.pts<d.p||(d.id=='cap'&&!bandOk()))return;SV.pts-=d.p;if(d.id=='honey')SV.honey=1;else SV.rudi.capOwn=1;save();chime(SC5[6],.35);arp();shopRender();show(d.n+' gekauft',d.id=='honey'?'Das Glas steht jetzt ganz rechts im Lager am Boden. Tippe darauf, wenn du dich traust …':'Im Rucksack unter «Rüdigers Garderobe» kannst du es ihm anziehen.');return}
  if(id.startsWith('food:')){const d=FOOD.find(x=>x.id==id.slice(5));if(!d||SV.pts<d.p)return;SV.pts-=d.p;SV.food[d.id]=(SV.food[d.id]||0)+1;save();chime(SC5[6],.35);shopRender();trayRender();show(d.n+' gekauft','Wähle es unten aus und tippe auf eine Katze.');return}
  const d=TOYS.find(x=>x.id==id);if(!d||SV.toys.includes(d.id)||SV.pts<d.p)return;SV.pts-=d.p;SV.toys.push(d.id);save();chime(SC5[6],.35);shopRender();trayRender();show(d.n+' gekauft','Wähle es unten aus und tippe auf eine Katze.')};
 
@@ -2369,12 +2429,13 @@ function pickPlace(id){const p=PLACES[id];if(!p)return;audio();if(id=='home'||LO
 document.querySelectorAll('#map .pin').forEach(g=>{g.addEventListener('click',()=>pickPlace(g.dataset.id));g.addEventListener('keydown',e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pickPlace(g.dataset.id)}})});
 $('#snd').onclick=()=>{audio();muted=!muted;if(mst)mst.gain.setTargetAtTime(muted?0:.32,AC.currentTime,.1);$('#snd').textContent=muted?'🔇':'🔊'};
 $('#rst').onclick=()=>{const b=$('#rst');if(!b.dataset.a){b.dataset.a=1;b.textContent='Wirklich löschen?';setTimeout(()=>{delete b.dataset.a;b.textContent='Neu beginnen'},3000);return}
- delete b.dataset.a;b.textContent='Neu beginnen';SV={pts:0,toys:[],day:1,best:0,food:{},inv:{edel:0,enz:0,arn:0,minz:0,tea:0,b_dah:0,b_hort:0,b_rose:0,b_lav:0,b_sun:0},rack:[],hut:[],found:{},helpers:[],stars:{},wis:[],rudi:{h:0,fav:{},gifts:{},col:0,capOwn:0,wear:{col:true,cap:false}},st:{sun:0,sold:0,man:0,rev:0,dance:0,bf:0},ach:{},foodGift:1,photos:{},honey:0};SV.food.fish=1;G.rFull=0;GAR.x=GARX0;GAR.load=0;GAR.tilt=0;initGarden();ensureHelpers();REV.on=0;REV.th=[];MRK.on=0;Wm.hose=0;Wm.carry=null;save();selToy=null;INT=null;G.slept=0;G.ff=0;G.dayT=0;G.tally=0;G.care=0;man=null;cats.forEach(k=>{k.need=30;k.sleep=0});trayRender();$('#inf').classList.remove('on');show('Neuer Anfang','Die Katzen freuen sich auf dich.')};
+ delete b.dataset.a;b.textContent='Neu beginnen';resetGame()};
+function resetGame(){SV={pts:0,toys:[],day:1,best:0,food:{},inv:{edel:0,enz:0,arn:0,minz:0,tea:0,b_dah:0,b_hort:0,b_rose:0,b_lav:0,b_sun:0},rack:[],hut:[],found:{},helpers:[],stars:{},wis:[],rudi:{h:0,fav:{},gifts:{},col:0,capOwn:0,wear:{cap:false}},st:{sun:0,sold:0,man:0,rev:0,dance:0,bf:0},ach:{},foodGift:1,photos:{},honey:0,jfound:{},mung:{h:0}};SV.food.fish=1;G.rFull=0;GAR.x=GARX0;GAR.load=0;GAR.tilt=0;initGarden();ensureHelpers();REV.on=0;REV.th=[];MRK.on=0;Wm.hose=0;Wm.carry=null;save();selToy=null;INT=null;G.slept=0;G.ff=0;G.dayT=0;G.tally=0;G.care=0;man=null;cats.forEach(k=>{k.need=30;k.sleep=0});trayRender();$('#inf').classList.remove('on');G.trip=null;G.glow=null;G.ask=null;G.nerv=null;G.door=0;G.doorU=0;G.lap=null;G.skyF=null;RO.on=0;RO.hop=null;RO.mode='';cats[1].x=1800+OFF;cats[1].y=LY;cats[0].beh=null;G.tripDay=G.glowDay=G.revDay=null;camX=cl(Wm.x-W/SC/2,WX0,Math.max(WX0,WW-W/SC));show('Neuer Anfang','Die Katzen freuen sich auf dich.')}
 function resize(){W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,(W<1000||H<600)?1.6:2);cv.width=Math.round(W*D);cv.height=Math.round(H*D);SC=Math.max(.5,W<H?Math.min(H/WH,W/420):H<520?Math.min(H/(WH-115),Math.max(W/700,.55)):Math.min(H/WH,Math.max(W/700,.55)));US=Math.max(1,Math.min(1.45,.85/SC));HUDH=$('#top').offsetHeight;document.documentElement.style.setProperty('--hud',$('#top').offsetHeight+'px')}
 addEventListener('resize',resize);addEventListener('orientationchange',()=>setTimeout(resize,250));cv.addEventListener('contextmenu',e=>e.preventDefault());
 let hudT=0,saveT=0,last=performance.now();
 function frame(n){requestAnimationFrame(frame);const dt=Math.min(.05,(n-last)/1000);last=n;if(HOLD)return;step(dt);
- const vw=W/SC,lo=G.loc!='home'?0:WX0,hi=G.loc!='home'?LOC().w:WW,fx=G.loc=='jungle'&&J.pan&&J.pan.st!='leave'?(Wm.x+J.pan.x)/2:G.loc=='home'&&G.nerv&&G.nerv.st=='nerv'?Math.min((Wm.x+DOORX)/2,420+vw/2):G.loc=='home'&&G.trip&&RO.on&&RO.mode!='home'?RO.x+Math.min(vw*.3,Math.max(0,(cats[1].x-RO.x)/2)):G.loc=='home'&&G.glow&&RO.on&&!G.glow.end?RO.x:G.loc=='home'&&REV.on&&REV.st!='carry'?(Wm.x+REV.o.x)/2+(REV.st=='run'||REV.st=='standoff'||REV.st=='scared'?Math.min(120,vw*.18):0):Wm.x,tg=vw>=hi-lo?lo+(hi-lo-vw)/2:cl(fx-vw/2,lo,hi-vw);camX+=(tg-camX)*Math.min(1,dt*3.5);draw();drawTrans();hudT+=dt;saveT+=dt;if(hudT>.2){hudT=0;hud();if((G.achT=(G.achT||0)+1)%5==0)achCheck()}if(saveT>5){saveT=0;save()}}
+ const vw=W/SC,lo=G.loc!='home'?0:WX0,hi=G.loc!='home'?LOC().w:WW,fx=G.fin?560:G.loc=='jungle'&&J.pan&&J.pan.st!='leave'?(Wm.x+J.pan.x)/2:G.loc=='home'&&G.trip&&RO.on&&RO.mode!='home'?RO.x+Math.min(vw*.3,Math.max(0,(cats[1].x-RO.x)/2)):G.loc=='home'&&G.glow&&RO.on&&!G.glow.end?RO.x:G.loc=='home'&&REV.on&&REV.st!='carry'?(Wm.x+REV.o.x)/2+(REV.st=='run'||REV.st=='standoff'||REV.st=='scared'?Math.min(120,vw*.18):0):Wm.x,tg=vw>=hi-lo?lo+(hi-lo-vw)/2:cl(fx-vw/2,lo,hi-vw);camX+=(tg-camX)*Math.min(1,dt*3.5);draw();finOverlay();drawTrans();hudT+=dt;saveT+=dt;if(hudT>.2){hudT=0;hud();if((G.achT=(G.achT||0)+1)%5==0)achCheck()}if(saveT>5){saveT=0;save()}}
 addEventListener('beforeunload',save);addEventListener('pagehide',save);document.addEventListener('visibilitychange',()=>{if(document.hidden)save();else{if(AC&&AC.state=='suspended')AC.resume();last=performance.now()}});
 resize();trayRender();camX=cl(Wm.x-W/SC/2,WX0,Math.max(WX0,WW-W/SC));
 requestAnimationFrame(frame);
